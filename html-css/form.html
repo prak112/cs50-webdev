@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Form for Interests</title>
+    </head>
+    <body>
+        <form>
+            <div>
+                <b>Enter the Interest Worth Pursuing</b>
+                <input name="Interest" type="text" placeholder="Your Interest">
+            </div>
+            <div>
+                <b><i>Or choose from this list -> </i></b>
+                <input name="Pre-listed Interests" list="MyInterests" placeholder="My Interests">
+                <datalist id="MyInterests">
+                    <option value="Reading"></option>
+                    <option value="Playing Guitar"></option>
+                    <option value="Swimming"></option>
+                    <option value="Running"></option>
+                    <option value="Rock Climbing"></option>
+                    <option value="JumpSuit Sky Diving"></option>
+                    <option value="Sea Diving"></option>
+                    <option value="Mountaineering"></option>
+                    <option value="Skiing"></option>
+                    <option value="Rally Car Racing"></option>
+                    <option value="Ice-/Go-Karting"></option>
+                    <option value="Camping"></option>
+                </datalist>
+            </div>
+
+            <div>
+                <b>Activity Type</b>
+                <input name="Activity Type" type="radio" value="Indoor Activity">Indoor Activity
+                <input name="Activity Type" type="radio" value="Outdoor Activity">Outdoor Activity
+            </div>    
+            <div>
+                <b>Expensive ?</b>
+                <input name="Expensive" type="radio" value="Yes">Yes
+                <input name="Expensive" type="radio" value="No">No
+            </div>
+            <input type="Submit">
+       </form>
+    </body>
+</html>

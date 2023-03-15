@@ -1,4 +1,4 @@
-## Goals of Section 1 (HTML-CSS)
+## Goals (HTML-CSS)
 - Learn and implement HTML elements to structure webpages
 - Learn and implement CSS formatting for presentable webpages
 - Build and submit course project
@@ -9,7 +9,7 @@
 - Implement course project and Submit at [CS50x's OCW webpage](https://cs50.harvard.edu/web/2020/)
 - Implement personal project and publish it using GitHub Pages
 
-## Resources/References
+## Resources
 - [CS50x's OpenCourseWare](https://cs50.harvard.edu/web/2020/)
-- [freeCodeCamp's JavaScript Algorithms & Data Structures](https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/)
+- [freeCodeCamp's Responsive Web Design](https://www.freecodecamp.org/learn/2022/responsive-web-design/)
 - [MDN Learning Guide](https://developer.mozilla.org/en-US/docs/Learn)

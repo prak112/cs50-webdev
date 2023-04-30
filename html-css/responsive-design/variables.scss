@@ -1,9 +1,15 @@
-$list-item-color: blue; 
+
+$list-item-color: blueviolet; 
+
+
+h2{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
 
 ul{
     font-size: 20px;
     color: $list-item-color;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
 }
 
 ol{

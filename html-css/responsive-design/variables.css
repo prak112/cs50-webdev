@@ -1,0 +1,17 @@
+h2 {
+  font-family: Georgia, "Times New Roman", Times, serif;
+}
+
+ul {
+  font-size: 20px;
+  color: blueviolet;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+ol {
+  font-size: 25px;
+  color: blueviolet;
+  font-style: oblique;
+}
+
+/*# sourceMappingURL=variables.css.map */

@@ -1,0 +1,13 @@
+$list-item-color: blue; 
+
+ul{
+    font-size: 20px;
+    color: $list-item-color;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+ol{
+    font-size: 25px;
+    color: $list-item-color;
+    font-style: oblique;
+}

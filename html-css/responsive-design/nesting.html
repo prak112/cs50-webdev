@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Nesting Elements</title>
+        <link rel="stylesheet" href="nesting.css">
+    </head>
+    <body>
+        <h1 align="center">Handling Styling of Nested <i>div</i> elements</h1>
+        <p>
+            <h4>Task:</h4>
+            <li>create text styling for elements INSIDE <i>div</i> tag using SCSS</li>
+        </p>
+        <p>
+            <h4>Order of events :</h4>
+            <li>create HTML with nested elements Inside and Outside <i>div</i>> tag</li>
+            <li>create SCSS with nested styling, check <a href="nesting.scss">nesting.scss file</a></li>
+            <li>compile SCSS to CSS using,  
+                <code>sass nesting.scss:nesting.css</code></li>
+            <li>activate watch function using, 
+                <code>sass --watch nesting.scss:nesting.css</code></li>
+        </p>
+        </br>
+        <div>
+            <h3>Paragraph INSIDE <b>DIV</b> tag -</h3>
+            <p> 
+                <i>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    Lectus urna duis convallis convallis tellus id interdum. Pharetra et ultrices neque ornare aenean euismod. 
+                    Accumsan sit amet nulla facilisi morbi tempus iaculis urna id.</i>
+            </p>
+
+            <ul>
+                <h4>Unordered list INSIDE <b>DIV</b> tag -</h4>
+                <i><li>lorem ipsum 1</li>
+                <li>lorem ipsum 2</li>
+                <li>lorem ipsum 3</li></i>
+            </ul>
+        </div>
+        </br>
+        <h3>Paragraph OUTSIDE <b>DIV</b> tag -</h3>
+        <p>
+            <i>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            Lectus urna duis convallis convallis tellus id interdum. Pharetra et ultrices neque ornare aenean euismod. 
+            Accumsan sit amet nulla facilisi morbi tempus iaculis urna id. </i>
+        </p>
+
+        <ul>
+            <h4>Unordered list OUTSIDE <b>DIV</b> tag -</h4>
+        <i><li>lorem ipsum 1</li>
+            <li>lorem ipsum 2</li>
+            <li>lorem ipsum 3</li></i>
+        </ul>
+
+    </body>
+</html>

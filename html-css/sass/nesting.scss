@@ -1,15 +1,54 @@
+body{
+    background-color: palegreen;
+    margin: 50px 50px 50px 50px;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+.sass-instructions{
+    text-align: justify;
+    font-size: large;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+a {
+    a:visited{
+        color: red;
+    }
+
+    a:active{
+        color:purple;
+    }
+}
+
+.sass-example{
+    font-size: medium;
+    text-align: left;
+    display: inline-flex;
+    align-items: flex-start;
+    padding-left: 50px;
+    padding-right: 25px;
+}
+
+
+hr{
+    border-width: 2px;
+}
+
 div{
-    font-size: 20px;
-    font-family: 'Times New Roman', Times, serif;
+    h3{
+        text-align: left;
+    }
     
-    p{
+    pre{
         font-size: medium;
         color: rgb(41, 150, 68);
         color-scheme: dark;
     }
 
     ul{
+        text-align: left;
         color: rgb(218, 86, 230);
-        font-size: small;
+        font-size: medium;
     }
 }

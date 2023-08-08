@@ -5,50 +5,61 @@
         <link rel="stylesheet" href="nesting.css">
     </head>
     <body>
-        <h1 align="center">Handling Styling of Nested <i>div</i> elements</h1>
-        <p>
-            <h4>Task:</h4>
-            <li>create text styling for elements INSIDE <i>div</i> tag using SCSS</li>
-        </p>
-        <p>
-            <h4>Order of events :</h4>
-            <li>create HTML with nested elements Inside and Outside <i>div</i>> tag</li>
-            <li>create SCSS with nested styling, check <a href="nesting.scss">nesting.scss file</a></li>
-            <li>compile SCSS to CSS using,  
-                <code>sass nesting.scss:nesting.css</code></li>
-            <li>activate watch function using, 
-                <code>sass --watch nesting.scss:nesting.css</code></li>
-        </p>
-        </br>
-        <div>
-            <h3>Paragraph INSIDE <b>DIV</b> tag -</h3>
-            <p> 
-                <i>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                    Lectus urna duis convallis convallis tellus id interdum. Pharetra et ultrices neque ornare aenean euismod. 
-                    Accumsan sit amet nulla facilisi morbi tempus iaculis urna id.</i>
+        <main>
+        <fieldset class="sass-instructions">
+            <h1 align="center">Styling of Nested <code>div<code> elements</h1>
+            <p>
+                <h2>Task:</h2>
+                <strong>Create text styling for elements INSIDE <code>div<code> tag using SCSS</strong>
             </p>
-
+            <p>
+                <h2>Order of events :</h2>
+                <ol>
+                    <li>Create HTML with nested elements Inside and Outside <code>div<code> tag</li>
+                    <li>Create SCSS with nested styling, check <a href="nesting.scss">nesting.scss file</a></li>
+                    <li>Compile SCSS to CSS using,  
+                        <pre><strong><code>sass <i>filename</i>.scss:<i>filename</i>.css</code></strong></pre>
+                        </li>
+                    <li>Activate watch function using, 
+                        <pre><strong><code>sass --watch <i>filename</i>.scss:<i>filename</i>.css</code></strong></pre>
+                        </li>
+                </ol>
+            </p>
+        </fieldset>
+        <hr>
+        <section class="sass-example">
+        <div>
+            <h3>Content INSIDE <code>div<code></h3>
+            <fieldset>
+            <pre> 
+    <i>This Paragraph is inside pre-formatted and italic,
+    Font-Size is MEDIUM,
+    Font-Color is GREEN,</i>
+            </pre>
+            <h3>Unordered list INSIDE <code>div<code>-</h3>
             <ul>
-                <h4>Unordered list INSIDE <b>DIV</b> tag -</h4>
-                <i><li>lorem ipsum 1</li>
-                <li>lorem ipsum 2</li>
-                <li>lorem ipsum 3</li></i>
+                <li>Items are aligned LEFT</li>
+                <li>Items are coloured PINK</li>
+                <li>Items Font-Size is MEDIUM</li>
             </ul>
         </div>
-        </br>
-        <h3>Paragraph OUTSIDE <b>DIV</b> tag -</h3>
-        <p>
-            <i>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            Lectus urna duis convallis convallis tellus id interdum. Pharetra et ultrices neque ornare aenean euismod. 
-            Accumsan sit amet nulla facilisi morbi tempus iaculis urna id. </i>
-        </p>
-
-        <ul>
-            <h4>Unordered list OUTSIDE <b>DIV</b> tag -</h4>
-        <i><li>lorem ipsum 1</li>
-            <li>lorem ipsum 2</li>
-            <li>lorem ipsum 3</li></i>
-        </ul>
-
+        </fieldset>
+            <h3>Content OUTSIDE <code>div<code></h3>
+            <fieldset>
+            <pre>
+        This Paragraph is inside pre-formatted tag,
+        Font-Size is NOT MEDIUM,
+        Font-Color is NOT GREEN,
+            </pre>                
+            <h3>Unordered list OUTSIDE <code>div<code>-</h3>
+            <ul>
+                <li>Items are NOT aligned LEFT</li>
+                <li>Items are NOT coloured PINK</li>
+                <li>Items Font-Size is NOT MEDIUM</li>
+            </ul>
+        </fieldset>
+        </section>
+        <hr>
+        </main>
     </body>
 </html>

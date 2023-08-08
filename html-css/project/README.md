@@ -12,13 +12,17 @@ Source : [CS50 project0 documentation](https://cs50.harvard.edu/web/2020/project
     ```
     https://www.google.com/search?q=cs50+web+development&oq=cs50+web+development&aqs=chrome..
     ```
- - Let's check what we know by dissecting this url
- - `?` seperates the routing url and the query
+ - Let's start by dissecting this url
+ - `?` seperates the routing url and the Query String
  - First part of the url before the `?` is  the route -
     ```
     https://www.google.com/search
     ```
- - Next part after `?` consists of the query search parameter `q` and its value `cs50+web+development`
+ - Next part after `?` is called the Query String. It's general syntax is :
+   ```
+   field1=value1&field2=value2....
+   ```
+ - In our example, Query String consists of the query search parameter `q` and its value `cs50+web+development`
 
     ```
     ?q=cs50+web+development

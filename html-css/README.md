@@ -14,11 +14,19 @@
 
 ## Topics Learned
 - [Fundamentals](fundamentals/)
-    - [Lists](fundamentals/lists.html),
-    - [Table design](fundamentals/table.html),
-    - [Form building](fundamentals/form.html),
-    - [Referencing](fundamentals/Link.html),
+    - [Lists](fundamentals/lists.html)
+    - [Table design](fundamentals/table.html)
+    - [Form building](fundamentals/form.html)
+    - [Referencing](fundamentals/Link.html)
     - [Internal CSS](fundamentals/style.html)
+- [Responsive Design](responsive-design/)
+    - [Bootstrap design](responsive-design/bootstrap.html)
+    - [Flexbox design](responsive-design/flexbox.html)
+    - [Grid design](responsive-design/grid.html)
+    - [Responsive by device-width](responsive-design/responsive.html)
+- [Reusable & Maintainable CSS](sass/) using SASS (Syntactically Awesome Style Sheets)
+    - [Variables](sass/variables.html)
+    - [Nested Elements](sass/nesting.html)
 
 ## Resources
 - [CS50x's OpenCourseWare](https://cs50.harvard.edu/web/2020/)

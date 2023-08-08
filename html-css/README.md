@@ -28,6 +28,11 @@
     - [Variables](sass/variables.html)
     - [Nested Elements](sass/nesting.html)
 
+
+## Project
+- [Frontend for Google Search](https://cs50.harvard.edu/web/2020/projects/0/search/)
+
+
 ## Resources
 - [CS50x's OpenCourseWare](https://cs50.harvard.edu/web/2020/)
 - [freeCodeCamp's Responsive Web Design](https://www.freecodecamp.org/learn/2022/responsive-web-design/)

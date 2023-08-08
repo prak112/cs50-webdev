@@ -12,6 +12,11 @@
 - Implement personal project and publish it using GitHub Pages 
     - To Learn more about [GitHub pages](https://docs.github.com/en/pages/getting-started-with-github-pages/about-github-pages)
 
+## Topics Learned
+- [Fundamentals](/html-css/fundamentals/) 
+    - [Table design](/html-css/fundamentals/table.html)
+    - [Form building]()
+
 ## Resources
 - [CS50x's OpenCourseWare](https://cs50.harvard.edu/web/2020/)
 - [freeCodeCamp's Responsive Web Design](https://www.freecodecamp.org/learn/2022/responsive-web-design/)

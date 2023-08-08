@@ -13,9 +13,12 @@
     - To Learn more about [GitHub pages](https://docs.github.com/en/pages/getting-started-with-github-pages/about-github-pages)
 
 ## Topics Learned
-- [Fundamentals](/html-css/fundamentals/) 
-    - [Table design](/html-css/fundamentals/table.html)
-    - [Form building]()
+- [Fundamentals](fundamentals/)
+    - [Lists](fundamentals/lists.html),
+    - [Table design](fundamentals/table.html),
+    - [Form building](fundamentals/form.html),
+    - [Referencing](fundamentals/Link.html),
+    - [Internal CSS](fundamentals/style.html)
 
 ## Resources
 - [CS50x's OpenCourseWare](https://cs50.harvard.edu/web/2020/)

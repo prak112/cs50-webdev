@@ -1,44 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Form for Interests</title>
     </head>
     <body>
         <form>
+            <br>
             <div>
                 <b>Enter the Interest Worth Pursuing</b>
-                <input name="Interest" type="text" placeholder="Your Interest">
+                <input name="interest" type="text" placeholder="Your Interest">
             </div>
+            <br> 
             <div>
-                <b><i>Or choose from this list -> </i></b>
-                <input name="Pre-listed Interests" list="MyInterests" placeholder="My Interests">
-                <datalist id="MyInterests">
-                    <option value="Reading"></option>
-                    <option value="Playing Guitar"></option>
-                    <option value="Swimming"></option>
-                    <option value="Running"></option>
-                    <option value="Rock Climbing"></option>
-                    <option value="JumpSuit Sky Diving"></option>
-                    <option value="Sea Diving"></option>
-                    <option value="Mountaineering"></option>
-                    <option value="Skiing"></option>
-                    <option value="Rally Car Racing"></option>
-                    <option value="Ice-/Go-Karting"></option>
-                    <option value="Camping"></option>
+                <label for="hobbies"><b><i>Or choose from this list >>> </i></b></label>
+                <input list="hobby-list" id="hobbies" name="hobbies" placeholder="Possible Hobbies...">
+                <datalist id="hobby-list">
+                    <option value="Reading">
+                    <option value="Playing Guitar">
+                    <option value="Swimming">
+                    <option value="Running">
+                    <option value="Rock Climbing">
+                    <option value="JumpSuit Sky Diving">
+                    <option value="Sea Diving">
+                    <option value="Mountaineering">
+                    <option value="Skiing">
+                    <option value="Rally Car Racing">
+                    <option value="Ice-/Go-Karting">
+                    <option value="Camping">
                 </datalist>
             </div>
-
-            <div>
-                <b>Activity Type</b>
-                <input name="Activity Type" type="radio" value="Indoor Activity">Indoor Activity
-                <input name="Activity Type" type="radio" value="Outdoor Activity">Outdoor Activity
-            </div>
-            <div>
-                <b>Expensive ?</b>
-                <input name="Expensive" type="radio" value="Yes">Yes
-                <input name="Expensive" type="radio" value="No">No
-            </div>
-            <input type="Submit">
+            <br>
+            <fieldset>
+                <legend>Activity Type</legend>
+                <label><input title="activity-type" type="radio" name="indoor-outdoor" value="indoor" checked>Indoor Activity</label>
+                <label><input title="activity-type" type="radio" name="indoor-outdoor" value="outdoor">Outdoor Activity</label>
+            </fieldset>
+            <fieldset>
+                <legend>Expensive ?</legend>
+                <label><input title="expense" type="radio" name="yes-no" value="yes" checked>Yes</label>
+                <label><input title="expense" type="radio" name="yes-no" value="no">No</label>
+            </fieldset>
+            <br>
+            <input type="submit">
        </form>
     </body>
 </html>

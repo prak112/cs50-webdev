@@ -103,12 +103,14 @@ A --> S
 <hr>
 
 ```mermaid
+
 graph TB
 ServerRenderView
 A[Run Server] --> B[Checks ´project/urls.py´]
 B --goes to app--> C[Checks view listed in ´app/urls.py´]
 C --goes to app/views.py--> D[Renders response] 
 ```
+
 - Project is hosted on the web server at a specific URL which signifies `localhost`
 - Webpage lists all apps inside the project
 - Change URL from `https://localhost/` to `https://localhost/<app_name>`

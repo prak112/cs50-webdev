@@ -7,7 +7,7 @@
     1. [HTML and CSS](html-css/README.md)
     2. Git
     3. Python
-    4. Django
+    4. [Django](/django/README.md)
     5. SQL, Models and Migrations
     6. JavaScript
     7. User Interfaces

@@ -2,7 +2,7 @@
 - Learn and implement HTML elements to structure webpages
 - Learn and implement CSS formatting for presentable webpages
 - Build and submit course project 
-    - [Frontend for Google Search](https://cs50.harvard.edu/web/2020/projects/0/search/)
+    - Frontend for Google Search-[CS50 Guidelines](https://cs50.harvard.edu/web/2020/projects/0/search/)
 - Build and publish personal project 
     - [Hobbies & Interests Worth Pursuing](fundamentals/table.html)
 
@@ -30,7 +30,7 @@
 
 
 ## Project
-- [Frontend for Google Search](https://cs50.harvard.edu/web/2020/projects/0/search/)
+- Frontend for Google Search-[My Version](https://github.com/prak112/DevSchool-HTML/tree/googletest)
 
 
 ## Resources

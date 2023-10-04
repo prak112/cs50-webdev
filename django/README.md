@@ -106,6 +106,7 @@ A --> S
 
 graph TB
 ServerRenderView
+
 A[Run Server] --> B[Checks ´project/urls.py´]
 B --goes to app--> C[Checks view listed in ´app/urls.py´]
 C --goes to app/views.py--> D[Renders response] 

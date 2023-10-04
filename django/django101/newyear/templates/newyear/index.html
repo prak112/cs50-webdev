@@ -1,0 +1,20 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Is it New Year?</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'newyear/styles.css' %}"/>
+</head>
+<body>
+    <!--django if-else block-->
+    {% if is_new_year %}
+        <h1>Yea baby yeaa! Happy New Year {{ year }}!</h1>
+    {% else %}
+        <h1>Nope. Still the good-old {{ year }}!</h1>
+    {% endif %}
+    <!--django if-else block-->    
+</body>
+</html>

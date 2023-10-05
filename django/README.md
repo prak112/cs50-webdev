@@ -7,7 +7,16 @@
 
 # Contents
 - [Fundamentals](#fundamentals)
+    - [Initatie Django](#initiate-django)
+    - [Project Execution](#project-execution)
+    - [Workflow](#workflow)
 - [Takeaways](#takeaways)
+    - [Directory tree](#terminal-command-to-list-directory-tree)
+    - [File Structure](#file-structure)
+    - [Templating Language](#templating-language)
+    - [Template Inheritance](#template-inheritance)
+    - [Forms](#forms)
+    - [Sessions](#sessions)
 
 </br>
 <hr>
@@ -123,7 +132,7 @@ C --goes to app/views.py--> D[Renders response]
 <hr>
 
 # Takeaways
-## Terminal command to list directory tree
+## Terminal Command to list Directory Tree
 
 - To expand all files inside a directory in Windows Terminal, use the `tree` command. Here are the steps to follow:
 
@@ -151,13 +160,15 @@ C --goes to app/views.py--> D[Renders response]
     - Type `tree /f | clip` and press Enter --> *copies directory tree to paste*
 
 
-## Django file structure
+## File Structure
 - File structure is clearly based on distributing workload between Frontend, Backend and Databases
 - `templates` consists of dynamic HTML content, which vary based on the input parameters
 - `static` consists of static CSS styling, hence placed in static content
 
 
-## Django-Templating language
+## Templating Language
+- Django documentation for [Templating Language](https://docs.djangoproject.com/en/4.2/ref/templates/api/)
+
 <table border>
     <th>Syntax</th>
     <th>Function</th>
@@ -177,4 +188,105 @@ C --goes to app/views.py--> D[Renders response]
         <td>{%<code> endif </code>%}</td>
         <td>to indicate the end of If-Else block</td>
     </tr>
+    <tr>
+        <td>{%<code> for item in list </code>%}</td>
+        <td>items in list can looped over to build HTML list</td>
+    </tr>
+    <tr>
+        <td>{%<code> empty </code>%}</td>
+        <td>Inside for-loop, option to display a static message when there are no items to loop-over</td>
+    </tr>
+    <tr>
+        <td>{%<code> endfor </code>%}</td>
+        <td>to indicate the end of For-loop block</td>
+    </tr>
+    <tr>
+        <td>{%<code> block label </code>%}</td>
+        <td>to indicate the dynamic content probably added in other HTML files. 
+        Details in <a href="#django-template-inheritance">Django Template Inheritance</a></td>
+    </tr>
+    <tr>
+        <td>{%<code> endblock </code>%}</td>
+        <td>to indicate the end of the dynamic content block</td>
+    </tr>
+    <tr>
+        <td>{%<code> url 'route name' </code>%}</td>
+        <td>to navigate between different urls, For ex. <code>path("", views.index, name='index')</code>, in this case the route name is <code>'index'</code></td>
+    </tr>
 </table>
+
+
+## Template Inheritance
+- Tutorial about [Template Inheritance from DjangoGirls](https://tutorial.djangogirls.org/en/template_extending/) 
+- Template Inheritance is useful for ensuring the uniformity of HTML boilerplate code, i.e., layout for all pages within an application
+- Create file `layout.html` in `app/templates/app`
+- Within `layout.html`, define the dynamic content within the layout as follows :
+    ```html
+    <html>
+        <head>
+            <title></title>
+        </head>
+        <body>
+            {% block body %}
+            {% endblock %}
+        </body>
+    </html>
+    ``` 
+- Inside other HTML files, where the dynamic content can be added is done as follows :
+    ```html
+     {% extends "app/layout.html"}
+     
+        {% block body %}
+            <!-- dynamic content here -->
+        {% endblock %}
+    ```
+
+## Forms
+- `django.forms` module helps in defining Form elements
+- Form structure needs to be defined through HTML opening `<form>` and closing `</form>` tags in `template.html`
+- Form elements can be defined in `views.py` from the specific function that is rendering the form
+- Form data submission requires to be secured through *Django Middleware*
+- To secure form data submission, inside the HTML `<form>` tag a token must be passed as follows:
+    ```html
+    {% csrf_token %}
+    ```
+- For example, the above token could render as following inside HTML Form :
+    ```html
+    <input type="hidden" name="csrfmiddlewaretoken" value="l3XqWpeqf9a3dww21khx64OaxluaYdxYEB9R0SCLnfJCEScSCD6qgH8JmBXcR7VF">
+    ```
+- To know more about [CSRF](https://portswigger.net/web-security/csrf) 
+
+- This allows Django to verify and ensure data credibility without external interference, since the tokens are unique and random
+- Django also automates *Client-side validation*
+- To ensure data credibility and server-side modifications, *Server-side validation* is a recommended approach 
+- To redirect users after performing any main action, such as submitting form data, the following `return` syntax is useful :
+    ```python
+    from django.urls import reverse
+    from django.http import HttpResponseRedirect
+
+    def index(request):
+        # server-side validation
+        ... 
+    return HttpResponseRedirect(reverse('<route_name>'))
+    ```
+
+## Sessions
+- In the applications, *global variables* were used inside `views.py`
+- However, *global variables* tend to show same data to all users
+- Hence, to protect privacy and for better user experience *session variables* can be added as follows :
+    ```python
+    def index(request):
+        if "user_session" not in request.session:
+            request.session["user_session"] = []
+        
+        # server-side validation
+        ...
+
+        return render(request, 'app/template.html', context={
+            "user_data": request.session["user_session"]
+        })
+    ```
+- From this step forth, Django saves all data in default database tables
+- Hence, server throws an `OperationalError` saying `no such table: django_session`
+- To deal with this, `migrate` the project which allows Django to create all default database tables
+- This resolves the `OperationalError` and launches the application successfully, with built-in session data storage.

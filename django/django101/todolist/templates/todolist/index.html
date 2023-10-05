@@ -1,16 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>To-Do List</title>
-</head>
-<body>
-    <h1>Welcome to Your To-Do List!</h1>
+
+{% extends "todolist/layout.html" %}
+
+{% block content %}
     <ul>
         {% for task in tasks %}
             <li> {{ task }}</li>
-        {% endfor %}
+        {% empty %}
+            <li>No Tasks. Freedom!!</li>
+        {% endfor %}   
     </ul>
-</body>
-</html>
+    <a href="{% url 'add' %}">Add New Task</a>
+{% endblock %}

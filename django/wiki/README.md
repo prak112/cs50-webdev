@@ -14,7 +14,13 @@
 # Tasks - Solutions
 - [X] **Entry Page** - render by visiting url `wiki/TITLE`, where `TITLE` is the name of the entry
     - Step 1: Convert Markdown entries in `entries` to HTML files in `encyclopedia/templates`
-    - Step 2: Create single function to render multiple views with a selection block (`if-else`) in `encyclopedia/views.py`
+    - Step 2: Configure URL in `encyclopedia/urls.py` as :
+        ```python
+            # renders all listed titles and not found pages
+            path("<str:title>", views.renderhtml, name="renderhtml")  # --> renders as default view for all sidebar links
+            path("renderhtml/<str:title>", views.renderhtml, name="renderhtml")  # --> renders only when called for
+        ```
+    - Step 3: Define view to render multiple views with a selection block (`if-else`) in `encyclopedia/views.py`
     - Step 3: Include view in `encyclopedia/urls.py`
 - [X] **Index Page** - hyperlink all the entries listed in the Wiki homepage
     - Step 1: Check `Django Template Engine` syntax for hyperlink using `</a>` tag

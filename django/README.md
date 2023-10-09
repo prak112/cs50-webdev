@@ -17,6 +17,7 @@
     - [Template Inheritance](#template-inheritance)
     - [Forms](#forms)
     - [Sessions](#sessions)
+- Assignment 1 - [Wiki](/django/wiki/README.md)
 
 </br>
 <hr>

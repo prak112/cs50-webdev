@@ -20,17 +20,17 @@
     - Step 1: Check `Django Template Engine` syntax for hyperlink using `</a>` tag
     - Step 2: Use the `route name` for `<a href="">` inside the `li` tag in `index.html` as follows :
         ```html
-        <!--django template engine, for loop-->
+        <!--django template engine, loop entries-->
             <li><a href="{% url 'renderhtml' entry %}">{{ entry }}</a></li>
             <!--'renderhtml' - 'route name' for the view -->
             <!--'entry' - input parameter for 'renderhtml'--->
         <!--end for loop-->    
         ```
-- [ ] **Search Entries** - 
-- [ ] **New Page** - 
-- [ ] **Edit Page** -
-- [ ] **Random Page** -
-- [X] **Markdown to HTML Conversion** - 
+- [ ] **Search Entries** - enable search box in sidebar to search for Wiki entries
+- [ ] **New Page** - enable '*Create New Page*' link in sidebar to create a new entry
+- [ ] **Edit Page** - enable '*Edit Page*' option in each entry page to edit, save and redirect to an updated entry
+- [ ] **Random Page** - enable '*Random Page*' link in sidebar to open a random entry
+- [X] **Markdown to HTML Conversion** - convert the Markdown files in '*entries*' to HTML
     - Could be done easy way, (*Took the easy way for now* &ensp;:-P )
         ```python 
         >>> pip3 install markdown2      # install markdown to HTML converter

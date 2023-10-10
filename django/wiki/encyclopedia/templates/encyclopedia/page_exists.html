@@ -1,0 +1,14 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    Page Exists!
+{% endblock %}
+
+{% block body %}
+    <h1>Page Exists!</h1>
+    <p>The entry you are trying to submit already exists.</p>
+{% endblock %}}
+
+{% block nav %}
+    <a href="{% url 'renderhtml' title %}">Go To {{ title }}</a>
+{% endblock %}

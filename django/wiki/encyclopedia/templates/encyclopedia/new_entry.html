@@ -1,4 +1,5 @@
 {% extends "encyclopedia/layout.html" %}
+{% load static %}
 
 {% block title %}
     New Entry
@@ -6,10 +7,11 @@
 
 {% block body %}
     <h1>New Entry</h1>
-    <form--action = "{% url 'new_entry' %}" method="POST">
-        
+    <form action = "{% url 'new_entry' %}" method="POST">
         {% csrf_token %}
-        {{ form}}
-        <input type="submit" value="Submit">
+        {{ form.title }}<br>
+        <p>Need Help? Check this out: <a href="https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax">GitHub Markdown Guide</a></p>
+        {{ form.content }}<br>
+        {{ form.submit }}
     </form>
 {% endblock %}

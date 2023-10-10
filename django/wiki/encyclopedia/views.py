@@ -3,12 +3,7 @@ from django.shortcuts import render
 from django import forms
 
 from . import util
-
-class NewForm(forms.Form):
-    # search = forms.CharField(label="Search")
-    title = forms.CharField(label="Title")
-    content = forms.CharField(widget=forms.Textarea(attrs={"rows":"25", "cols":"50"}))
-
+import subprocess   # to run CLI command for .md to .html conversion 
 
 def index(request):
     return render(request, "encyclopedia/index.html", {
@@ -35,6 +30,54 @@ def renderhtml(request, title):
                   {"title": util.get_entry(title)})
 
 
+
+class NewForm(forms.Form):
+    # search = forms.CharField(label="Search")
+    title = forms.CharField(label="Title", widget=forms.TextInput(attrs={'placeholder':'Title here...'}))
+    content = forms.CharField(widget=forms.Textarea(attrs={'rows': 10, 'cols': 40, 'placeholder':'Enter Content in Markdown syntax...'}))
+    submit = forms.CharField(widget=forms.widgets.Input(attrs={'type':'submit', 'value':'Submit!'}))
+  
+
+def new_entry(request):
+
+    if request.method == 'POST':
+        form = NewForm(request.POST)
+        if form.is_valid():
+            title = form.cleaned_data["title"].replace(" ","")
+            content = form.cleaned_data["content"]
+
+            if util.save_entry(title, content):               
+                # convert Markdown to HTML
+                markdown_file = f"entries/{title}.md"   
+                html_file = f"encyclopedia/templates/encyclopedia/{title}.html"
+                cli_command = f"python -m markdown2 {markdown_file} > {html_file}"
+                subprocess.run(cli_command, shell=True, check=True)
+
+                # redirect to new entry
+                return renderhtml(request, title) 
+            # return already existing entry
+            else:       
+                return render(request, 'encyclopedia/page_exists.html', context={'title': title})           
+
+        else:   # request with invalid data   
+            return render(request, 'encyclopedia/new_entry.html', context={
+                            "form" : form,
+                        })
+    # new request to create new entry    
+    return render(request, 'encyclopedia/new_entry.html', context={
+                    'form':NewForm(),
+                })
+    
+
+
+def edit_entry(request, title):
+
+    return render(request, f"entries/{title}.md")
+
+
+
+
+
 # def search(request):
 #     """
 #     Search for a given query and render the results.
@@ -59,18 +102,3 @@ def renderhtml(request, title):
 #             return render(request, 'encyclopedia/results.html', {
 #                 "entries": results
 #                 })
-    
-
-def new_entry(request):
-
-    # if request.method == 'POST':
-    #     form = NewForm(request.POST)
-    #     if form.is_valid():
-    #         title = form.cleaned_data["title"]
-    #         content = form.cleaned_data["content"]
-            
-
-        return render(request, 'encyclopedia/new_entry.html', context={
-            # "form" : form,
-    })
-    

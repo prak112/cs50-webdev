@@ -33,16 +33,38 @@
         <!--end for loop-->    
         ```
 - [ ] **Search Entries** - enable search box in sidebar to search for Wiki entries
-- [ ] **New Page** - enable '*Create New Page*' link in sidebar to create a new entry
+- [X] **New Page** - enable '*Create New Page*' link in sidebar to create a new entry
+    - Step 1: Set up URL config in `encyclopedia/urls.py`
+    - Step 2: In `encyclopedia/views.py`, import `django.forms` to create form fields for title, content area and submit button
+    - Step 3: Create and render basic view `new_entry` with form fields
+    - Step 4: Process form data submission by adding `if-else` blocks to check for validity of `request` and data 
+    - Step 5: Use `util.save_entry(title, content)` function with required parameters to save the user entry to `entries`
+    - Step 6: Convert the saved entry from `.md` to `.html` using `subprocess` module as follows:
+        ```python
+            # convert Markdown to HTML
+            markdown_file = f"entries/{title}.md"   
+            html_file = f"encyclopedia/templates/encyclopedia/{title}.html"
+            cli_command = f"python -m markdown2 {markdown_file} > {html_file}"
+            subprocess.run(cli_command, shell=True, check=True)
+        ```
+    - Step 7: User is redirected to the new entry through `renderhtml` view
+    - Step 8: If entry exists already, render `page_exists.html` with reference to existing page in sidebar
+    - Step 9: If form data invalid, render form data with *Client-side validation* error messages
 - [ ] **Edit Page** - enable '*Edit Page*' option in each entry page to edit, save and redirect to an updated entry
 - [ ] **Random Page** - enable '*Random Page*' link in sidebar to open a random entry
 - [X] **Markdown to HTML Conversion** - convert the Markdown files in '*entries*' to HTML
-    - Could be done easy way, (*Took the easy way for now* &ensp;:-P )
+    - [X] Easy Way
         ```python 
         >>> pip3 install markdown2      # install markdown to HTML converter
 
         >>> python -m markdown2 markdown.md > file.html     # convert markdown to HTML in CLI
         ```
-    - Or the hard way by using regular expressions (`re`) in Python without external libraries at all!
+    - [ ] Hard Way - using regular expressions (`re`) in Python without external libraries at all!
 
+<br>
+<hr>
 
+# Key Takeaways 
+( *in 1-line* )
+- Understand and represent path directories and routes correctly in the code.
+-

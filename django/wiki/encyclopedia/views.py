@@ -1,9 +1,11 @@
-from django.http import HttpResponseRedirect
+#from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django import forms
 
 from . import util
-import subprocess   # to run CLI command for .md to .html conversion 
+
+import subprocess   # to run CLI command for .md to .html conversion
+import random
 
 def index(request):
     return render(request, "encyclopedia/index.html", {
@@ -70,9 +72,19 @@ def new_entry(request):
     
 
 
-def edit_entry(request, title):
+def random_page(request):
+    entries = util.list_entries()    
+    return renderhtml(request, random.choice(entries))
 
-    return render(request, f"entries/{title}.md")
+
+
+
+
+
+
+# def edit_entry(request, title):
+
+#     return render(request, f"entries/{title}.md")
 
 
 

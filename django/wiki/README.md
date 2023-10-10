@@ -51,7 +51,10 @@
     - Step 8: If entry exists already, render `page_exists.html` with reference to existing page in sidebar
     - Step 9: If form data invalid, render form data with *Client-side validation* error messages
 - [ ] **Edit Page** - enable '*Edit Page*' option in each entry page to edit, save and redirect to an updated entry
-- [ ] **Random Page** - enable '*Random Page*' link in sidebar to open a random entry
+- [X] **Random Page** - enable '*Random Page*' link in sidebar to open a random entry
+    - Step 1: Add `<a>` tag to '*Random Page*' with url name
+    - Step 2: Add url name to `encyclopedia/urls.py` (URL config)
+    - Step 3: Define view, `random_page`
 - [X] **Markdown to HTML Conversion** - convert the Markdown files in '*entries*' to HTML
     - [X] Easy Way
         ```python 

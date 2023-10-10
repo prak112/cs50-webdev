@@ -1,4 +1,5 @@
-#from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 from django.shortcuts import render
 from django import forms
 
@@ -28,15 +29,14 @@ def renderhtml(request, title):
     """
     if not util.get_entry(title):
         return render(request, 'encyclopedia/not_found.html', {"title": title.upper()})
-    return render(request, f"encyclopedia/{title}.html",
-                  {"title": util.get_entry(title)})
+    return render(request, f"encyclopedia/{title}.html", {"title": util.get_entry(title)})
 
 
-
+# class definition for creating Form objects for new_entry & edit_entry
 class NewForm(forms.Form):
-    # search = forms.CharField(label="Search")
     title = forms.CharField(label="Title", widget=forms.TextInput(attrs={'placeholder':'Title here...'}))
-    content = forms.CharField(widget=forms.Textarea(attrs={'rows': 10, 'cols': 40, 'placeholder':'Enter Content in Markdown syntax...'}))
+    content = forms.CharField(widget=forms.Textarea(attrs=
+                                                    {'rows': 10, 'cols': 40, 'placeholder':'Enter Content in Markdown syntax...'}))
     submit = forms.CharField(widget=forms.widgets.Input(attrs={'type':'submit', 'value':'Submit!'}))
   
 
@@ -56,7 +56,7 @@ def new_entry(request):
                 subprocess.run(cli_command, shell=True, check=True)
 
                 # redirect to new entry
-                return renderhtml(request, title) 
+                return HttpResponseRedirect(reverse('renderhtml', args=[title]))
             # return already existing entry
             else:       
                 return render(request, 'encyclopedia/page_exists.html', context={'title': title})           
@@ -73,20 +73,34 @@ def new_entry(request):
 
 
 def random_page(request):
-    entries = util.list_entries()    
-    return renderhtml(request, random.choice(entries))
+    entries = util.list_entries()
+    choice = random.choice(entries)
+    return HttpResponseRedirect(reverse('renderhtml', args=[choice]))
 
 
+def edit_entry(request, title):
 
+    # PSEUDO-CODE
+    # declare django.forms.form
+    # declare form fields
+    # declare form.content with "value" = f"entries/{title}.md"
 
+    if request.method == 'POST':
+        form = NewForm(request.POST)
 
+        if form.is_valid():
+            form.title = forms.CharField(widget=forms.widgets.Input(attrs={'value': title}))
+            form.content = forms.Textarea(widget=forms.widgets.Input(attrs=
+                                                                {'value': util.get_entry(title), 'rows':'10', 'columns':'40'}))
+        
+            # title = form.cleaned_data["title"]
+            # content = form.cleaned_data["content"]
+            util.save_entry(title, form.content)
+            return HttpResponseRedirect(reverse('renderhtml', args=[title]))
+ 
+        return render(request, 'encyclopedia/edit_entry.html', context={'form': form, 'title': title})
 
-
-# def edit_entry(request, title):
-
-#     return render(request, f"entries/{title}.md")
-
-
+    return render(request, 'encyclopedia/edit_entry.html', context={'form': NewForm()})
 
 
 

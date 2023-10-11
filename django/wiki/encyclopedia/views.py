@@ -7,6 +7,7 @@ from . import util
 
 import subprocess   # to run CLI command for .md to .html conversion
 import random
+import re   # to extract topic_name for renderhtml view
 
 def index(request):
     return render(request, "encyclopedia/index.html", {
@@ -29,7 +30,8 @@ def renderhtml(request, title):
     """
     if not util.get_entry(title):
         return render(request, 'encyclopedia/not_found.html', {"title": title.upper()})
-    return render(request, f"encyclopedia/{title}.html", {"title": util.get_entry(title)})
+    else:
+        return render(request, f"encyclopedia/{title}.html", {"title": util.get_entry(title), "topic": title.upper()})
 
 
 # class definition for creating Form objects for new_entry & edit_entry
@@ -57,18 +59,16 @@ def new_entry(request):
 
                 # redirect to new entry
                 return HttpResponseRedirect(reverse('renderhtml', args=[title]))
+            
             # return already existing entry
             else:       
                 return render(request, 'encyclopedia/page_exists.html', context={'title': title})           
 
-        else:   # request with invalid data   
-            return render(request, 'encyclopedia/new_entry.html', context={
-                            "form" : form,
-                        })
+        # request with invalid data
+        else:      
+            return render(request, 'encyclopedia/new_entry.html', context={"form" : form,})
     # new request to create new entry    
-    return render(request, 'encyclopedia/new_entry.html', context={
-                    'form':NewForm(),
-                })
+    return render(request, 'encyclopedia/new_entry.html', context={'form':NewForm(),})
     
 
 
@@ -78,30 +78,29 @@ def random_page(request):
     return HttpResponseRedirect(reverse('renderhtml', args=[choice]))
 
 
+
 def edit_entry(request, title):
+    intial_data = {
+                'title' : title,
+                'content': util.get_entry(title)
+                }
+    form = NewForm(initial=intial_data)
 
-    # PSEUDO-CODE
-    # declare django.forms.form
-    # declare form fields
-    # declare form.content with "value" = f"entries/{title}.md"
+    if request.method == 'POST' and form.is_valid():  
+        title = form.cleaned_data["title"]
+        content = form.cleaned_data["content"]
 
-    if request.method == 'POST':
-        form = NewForm(request.POST)
+        if util.save_entry(title, content):               
+            # convert Markdown to HTML
+            markdown_file = f"entries/{title}.md"   
+            html_file = f"encyclopedia/templates/encyclopedia/{title}.html"
+            cli_command = f"python -m markdown2 {markdown_file} > {html_file}"
+            subprocess.run(cli_command, shell=True, check=True)
 
-        if form.is_valid():
-            form.title = forms.CharField(widget=forms.widgets.Input(attrs={'value': title}))
-            form.content = forms.Textarea(widget=forms.widgets.Input(attrs=
-                                                                {'value': util.get_entry(title), 'rows':'10', 'columns':'40'}))
-        
-            # title = form.cleaned_data["title"]
-            # content = form.cleaned_data["content"]
-            util.save_entry(title, form.content)
-            return HttpResponseRedirect(reverse('renderhtml', args=[title]))
- 
-        return render(request, 'encyclopedia/edit_entry.html', context={'form': form, 'title': title})
-
-    return render(request, 'encyclopedia/edit_entry.html', context={'form': NewForm()})
-
+        return HttpResponseRedirect(reverse('renderhtml', args=[title]))
+    else:
+        return render(request, 'encyclopedia/edit_entry.html', context={'title' : title, 'form': form})
+    
 
 
 # def search(request):

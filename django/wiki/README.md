@@ -23,7 +23,7 @@
     - Step 3: Define view to render multiple views with a selection block (`if-else`) in `encyclopedia/views.py`
     - Step 3: Include view in `encyclopedia/urls.py`
 - [X] **Index Page** - hyperlink all the entries listed in the Wiki homepage
-    - Step 1: Check `Django Template Engine` syntax for hyperlink using `</a>` tag
+    - Step 1: Check `Django Template Engine` syntax for hyperlink using `<a>` tag
     - Step 2: Use the `route name` for `<a href="">` inside the `li` tag in `index.html` as follows :
         ```html
         <!--django template engine, loop entries-->
@@ -33,6 +33,17 @@
         <!--end for loop-->    
         ```
 - [ ] **Search Entries** - enable search box in sidebar to search for Wiki entries
+    - Step 1: Set up URL config in `encyclopedia/urls.py`
+    - Step 2: Create view with following logic :
+        - Get a list of all entries through `util.get_entries()`
+        - Compare the `search_term` with the list of entries
+        - Collect the result set
+        - Pass and render it on the template as follows:
+        ```html
+        {% for match in results %}
+            <li><a href="{% url 'renderhtml' entry %}">{{ match }}</a></li>
+        {% endfor %}
+        ```
 - [X] **New Page** - enable '*Create New Page*' link in sidebar to create a new entry
     - Step 1: Set up URL config in `encyclopedia/urls.py`
     - Step 2: In `encyclopedia/views.py`, import `django.forms` to create form fields for title, content area and submit button

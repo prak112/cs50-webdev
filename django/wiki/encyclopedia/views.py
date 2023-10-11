@@ -81,25 +81,32 @@ def random_page(request):
 
 def edit_entry(request, title):
     intial_data = {
-                'title' : title,
-                'content': util.get_entry(title)
+            'title' : title,
+            'content': util.get_entry(title)
                 }
-    form = NewForm(initial=intial_data)
+    form = NewForm(initial=intial_data)  
+    
+    if((request.method == "POST") and (form.is_valid())):       # unable to identify why request.method != "POST"
+            title = form.cleaned_data["title"]
+            content = form.cleaned_data["content"]
+            
+            util.save_entry(title, content)
+            return HttpResponseRedirect(reverse('renderhtml', args=[title]))
+        
+    else:   # render form with initial_data if invalid data /not "POST" request
+        return render(request, 'encyclopedia/edit_entry.html', context={'form': form, 'title': title} )
 
-    if request.method == 'POST' and form.is_valid():  
-        title = form.cleaned_data["title"]
-        content = form.cleaned_data["content"]
+        # if util.save_entry(title, content):               
+        #     # convert Markdown to HTML
+        #     markdown_file = f"entries/{title}.md"   
+        #     html_file = f"encyclopedia/templates/encyclopedia/{title}.html"
+        #     cli_command = f"python -m markdown2 {markdown_file} > {html_file}"
+        #     subprocess.run(cli_command, shell=True, check=True)
 
-        if util.save_entry(title, content):               
-            # convert Markdown to HTML
-            markdown_file = f"entries/{title}.md"   
-            html_file = f"encyclopedia/templates/encyclopedia/{title}.html"
-            cli_command = f"python -m markdown2 {markdown_file} > {html_file}"
-            subprocess.run(cli_command, shell=True, check=True)
+    # else:
+        # return render(request, 'encyclopedia/edit_entry.html', context={'title' : title, 'form': form})
+        # return HttpResponseRedirect(reverse('new_entry'))
 
-        return HttpResponseRedirect(reverse('renderhtml', args=[title]))
-    else:
-        return render(request, 'encyclopedia/edit_entry.html', context={'title' : title, 'form': form})
     
 
 

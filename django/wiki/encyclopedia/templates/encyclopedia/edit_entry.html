@@ -8,6 +8,7 @@
     
     <h1>Edit Entry</h1>
     <form action="{% url 'edit_entry' title %}" method="POST">
+        <!---'enctype' arg and value to recognize POST request by the edit_entry view, enctype="multipart/form-data"-->
         {% csrf_token %}
         {{ form.title }}<br>
         {{ form.content }}<br>

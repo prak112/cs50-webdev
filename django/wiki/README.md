@@ -51,6 +51,13 @@
     - Step 8: If entry exists already, render `page_exists.html` with reference to existing page in sidebar
     - Step 9: If form data invalid, render form data with *Client-side validation* error messages
 - [ ] **Edit Page** - enable '*Edit Page*' option in each entry page to edit, save and redirect to an updated entry
+    - Step 1: Identify the task as specific to each individual HTML file, since the content must be repopulated
+    - Step 2: URL config in `encyclopedia/urls.py` (URLs are global to all HTML files)
+    - Step 3: Start with one HTML, by adding `{% url 'name' arg=value %}` inside `{% block nav %}` dynamice content for navigation links
+        - Step 3.1: `arg` would be `title` and `value` would be name of the topic, hence `topic`
+        - Step 3.2: Go to `renderhtml` view, pass `title` as `topic` in `return` statement 
+    - Step 4: Create template `edit_entry` with form elements from `Class NewForm()`
+    - 
 - [X] **Random Page** - enable '*Random Page*' link in sidebar to open a random entry
     - Step 1: Add `<a>` tag to '*Random Page*' with url name
     - Step 2: Add url name to `encyclopedia/urls.py` (URL config)
@@ -70,4 +77,4 @@
 # Key Takeaways 
 ( *in 1-line* )
 - Understand and represent path directories and routes correctly in the code.
--
+- Parameters passed *TO* HTML template and passed *BETWEEN* HTML templates are different. Refer this- [from HTML](/django/wiki/encyclopedia/templates/encyclopedia/css.html) and [to HTML](/django/wiki/encyclopedia/templates/encyclopedia/edit_entry.html)

@@ -5,6 +5,7 @@ from django.shortcuts import render
 from django import forms
 
 from . import util
+from . import forms
 
 from django.conf import settings    # for Base Directory setting
 import os           # to join directory path
@@ -13,10 +14,6 @@ import markdown2    # to convert Markdown to HTML
 import random       # for random_page view
 
 
-def index(request):
-    return render(request, "encyclopedia/index.html", {
-        "entries": util.list_entries()
-    })
 
 def renderhtml(request, title):
     """
@@ -48,18 +45,12 @@ def renderhtml(request, title):
     #         else:
 
 
-# class definition for creating Form objects for new_entry & edit_entry
-class NewForm(forms.Form):
-    title = forms.CharField(label="Title", widget=forms.TextInput(attrs={'placeholder':'Title here...'}))
-    content = forms.CharField(widget=forms.Textarea(attrs=
-                                                    {'rows': 10, 'cols': 40, 'placeholder':'Enter Content in Markdown syntax...'}))
-    submit = forms.CharField(widget=forms.widgets.Input(attrs={'type':'submit', 'value':'Submit!'}))
-  
+
 
 def new_entry(request):
 
     if request.method == 'POST':
-        form = NewForm(request.POST)
+        form = forms.NewForm(request.POST)
         if form.is_valid():
             title = form.cleaned_data["title"].replace(" ","")
             content = form.cleaned_data["content"]
@@ -76,7 +67,7 @@ def new_entry(request):
         else:      
             return render(request, 'encyclopedia/new_entry.html', context={"form" : form,})
     # new request to create new entry    
-    return render(request, 'encyclopedia/new_entry.html', context={'form':NewForm(),})
+    return render(request, 'encyclopedia/new_entry.html', context={'form':forms.NewForm(),})
     
 
 
@@ -92,8 +83,9 @@ def edit_entry(request, title):
             'title' : title,
             'content': util.get_entry(title)
                 }
-    form = NewForm(initial=intial_data)  
-    # MAJOR DEBUGGING ---
+    form = forms.NewForm(initial=intial_data)  
+    
+    # --- MAJOR DEBUGGING ---
     # form.is_valid() NOT NECESSARY, form.has_changed IS NECESSARY
     # Request Type changes from POST to GET -- reasons --
         # Double-Form Resubmission -> after an error when refreshing the page, the form is submitted again
@@ -112,7 +104,7 @@ def edit_entry(request, title):
     """ 
    
     if form.has_changed() and request.method == "POST":
-        updated_form = NewForm(request.POST)
+        updated_form = forms.NewForm(request.POST)
         
         if updated_form.is_valid():
             title = updated_form.cleaned_data["title"]
@@ -145,27 +137,35 @@ def edit_entry(request, title):
     
 
 
-# def search(request):
-#     """
-#     Search for a given query and render the results.
-#     """
-#     if request.method == 'POST':
-#         form = SearchForm(request.POST)
 
-#         if form.is_valid():
-#             query = form.cleaned_data["search"]
+def search(request):
+    """
+    Search for a given query and render the results.
+    """
+    form = forms.SearchForm(request.GET)
 
-#             entries = util.list_entries()
-#             results = []
-#             for entry in entries:
-#                 if query.lower() == entry.lower():
-#                     return render(request, f"encyclopedia/{entry}.html", context={
-#                         "title":util.get_entry(entry)
-#                     })
-#                 elif entry.__contains__(query):
-#                     results.append(entry)
-#                 else:
-#                     return render(request, 'encyclopedia/notfound.html', {"title": query.upper()})
-#             return render(request, 'encyclopedia/results.html', {
-#                 "entries": results
-#                 })
+    if form.is_valid():
+        query = form.cleaned_data["search_term"]
+        entries = util.list_entries()
+        results = []
+        for entry in entries:
+            if entry.lower() == str(query).lower():
+                return HttpResponseRedirect(reverse('renderhtml', args=[entry]))
+            if entry.lower().__contains__(str(query).lower()):
+                results.append(entry)
+            # if query not in results:
+            #     return render(request, 'encyclopedia/not_found.html', {"title": query})
+        # appended results list    
+        return render(request, 'encyclopedia/search.html', {"results": results, "query": query})
+
+    else:
+        return render(request, 'encyclopedia/search.html', {"form": form})
+
+
+
+
+def index(request):
+
+    return render(request, "encyclopedia/index.html", {
+        "entries": util.list_entries(),
+    })

@@ -1,0 +1,22 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    Search 
+{% endblock %}
+
+
+{% block body %}
+
+    <h1>Search</h1>
+    <form action="{% url 'search' %}" method="GET">
+        {{ form.search_term }}<br>
+        {{ form.submit }}
+    </form>
+
+    {% if results %}        
+        <h1>Search Results for the term - "{{ query }}"</h1>
+        {% for result in results %}
+            <li><a href="url 'renderhtml' result">{{ result }}</a></li>
+        {% endfor %}
+    {% endif %}
+{% endblock %}

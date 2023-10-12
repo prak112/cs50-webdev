@@ -14,9 +14,13 @@
         <div class="row">
             <div class="sidebar col-lg-2 col-md-3">
                 <h2>Wiki</h2>
-                <form>
-                    <input class="search" type="text" name="q" placeholder="Search Encyclopedia">
-                </form>
+               <!-- <form>
+                    <input class="search" type="text" name="query" placeholder="Search Encyclopedia"
+                        action="encyclopedia/search.html"/>
+                 </form>
+            --> <div>
+                    <a href="{% url 'search' %}">Search Encyclopedia</a>
+                </div>
                 <div>
                     <a href="{% url 'index' %}">Home</a>
                 </div>

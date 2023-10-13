@@ -125,7 +125,6 @@ def edit_entry(request, title):
     
 
 
-
 def search(request):
     """
     Search for a given query and render the results.

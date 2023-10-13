@@ -214,34 +214,9 @@
                 
                 ...
         ```
-- [Entry Page](#entry-page)
-    - Every `edit_entry` and `new_entry` request creates a new markdown file, which will be converted into a fundamental HTML without the Django Template, `layout.html`
-    - To automate HTML rendering with `layout.html`, an `entry_template.html` can act as a gateway to extend `layout.html` to every entry
-        ```html
-            {% extends "encyclopedia/layout.html" %}
-
-            {% block title %}
-                {{ title }}
-            {% endblock %}
-
-            {% block nav %}
-                <a href="{% url 'edit_entry' title=title %}">Edit Page</a>
-            {% endblock %}
-
-            {% block body %}
-                {{ html_content|safe }}
-            {% endblock %}
-        ```
-    - Every markdown entry created by `new_entry` and `edit_entry` will redirect the saved markdown content to `renderhtml`
-    - In the view, `renderhtml`, convert markdown to HTML and pass the `html_content` to `entry_template.html` to render the updated markdown file with `layout.html`
-        ```python
-            def renderhtml(request, title):
-                ...
-                # convert Markdown to HTML
-                ...
-
-                return render(request, 'encyclopedia/entry_template.html', context={'html_content':html_content, 'title': title})
-        ```
+- [Entry Page](#entry-page) :
+    - Automate every possible repeating event / if event needs manual interference 
+    - For example : To render updated or newly created Markdown entries as HTML with `layout.html` template.
 
 
 
@@ -251,9 +226,42 @@
     ```cmd
         $ path/to/dir/wiki> python manage.py runserver
     ```
-    TODO - Explain how each of the following is rendered
-- Home page - 
-- Clicking on an entry -
-- Searching for an entry -
-- Editing an entry -
-- Creating an entry -
+- *Home page* 
+    - redirects current URL path to `index` view
+    - all entries are listed
+- *Click an entry* 
+    - redirects current URL to that specific entry in HTML version through `renderhtml` view
+- *Search for an entry* 
+    - redirects to `search.html`
+    - search term sent as `GET` request to `search` view
+    - `search` view redirects to entry, if search term = entry
+    - `search` view lists all possible entries with similar label to search term
+    - `search` view redirects to `not_found.html` if no results
+- *Edit an entry* 
+    - redirects to `edit_entry.html` with pre-filled content from original entry
+    - updated entry submission received by `edit_entry` view
+    - redirects to updated entry in HTML version
+    - if invalid, redirected to `edit_entry.html` to correct errors
+- *Create an entry* 
+    - redirects to `new_entry.html`
+    - entry created and submitted in Markdown syntax
+    - if entry already exists, renders `page_exists.html` with  `Go To TITLE` hyperlink in sidebar
+    - if entry accepted, redirected to `TITLE.html` through `renderhtml` view
+    - if entry invalid, redirected to `new_entry.html` for correction
+- *Markdown to HTML conversion*
+    - entries saved in `wiki/entries/` as `.md` file through `util.save_entry`
+    - `renderhtml` view uses `with open ()` to read entry content
+    - entry content converted to `html_content` using `markdown2`
+    - converted markdown content saved to `html_content`
+    - `html_content` written to `html_file` using `with open()`
+    - `renderhtml` renders `entry_template.html` with `html_content`
+
+
+
+<!-- to illustrate flow between views in views.py based on above tasks
+ ```mermaid
+flowchart TD
+
+
+end
+```   -->

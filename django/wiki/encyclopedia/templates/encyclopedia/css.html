@@ -1,19 +1,9 @@
-{% extends "encyclopedia/layout.html" %}
+<h1>CSS</h1>
 
-{% block title %}
-    {{ topic }}
-{% endblock %}
+<ul>
+<li><p>CSS is a language that can be used to add style to an <a href="/wiki/HTML">HTML</a> page.</p></li>
 
+<li><p>CSS stands for <em>Cascading Style Sheets</em></p></li>
 
-{% block nav %}
-<!---enter url with title as an argument in django template language--->
-    <a href="{% url 'edit_entry' title=topic %}">Edit Page</a>
-{% endblock %}
-
-
-{% block body %}
-<h1>{{ topic }}</h1>
-
-<p>{{ topic }} is a language that can be used to add style to an <a href="/wiki/HTML">HTML</a> page.</p>
-{% endblock %}
-
+<li><p>CSS can be automated using SASS which stands for <em>Syntactically Awesome Style Sheets</em></p></li>
+</ul>

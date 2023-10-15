@@ -258,10 +258,65 @@
 
 
 
-<!-- to illustrate flow between views in views.py based on above tasks
- ```mermaid
+<!--- WorkFlow Illustration----
+
+
+```mermaid
 flowchart TD
+title[[Wiki-ProcessFlow-ViewsToTemplates]]
+    style title fill:#f78
 
+    A[Run server] --> B[(fa:fa-eye Default VIEW-<i>index.py</i>)]
+        style A fill:#0f0
+    B --> C{fa:fa-home Home page-All Entries</br> fa:fa-link Sidebar links}
+    C --> |GET request<br>open entry| D[(fa:fa-eye VIEW-<i>renderhtml.py</i>)]
+    D -->|render HTML page| E[fa:fa-book TEMPLATE-<i>entry_template.html</i>]
+        style D fill:#0f6, stroke:#f6,stroke-width:5px,color:#55ff,stroke-dasharray: 5 5
+        style E fill:#5ff, stroke:#f6,stroke-width:5px,color:#f66ff,stroke-dasharray: 5 5
 
+    F[fa:fa-link Sidebar-<i>Search Encyclopedia</i>] --> G[fa:fa-book TEMPLATE-<i>search.html</i>]
+        style F fill:#ef6
+    G --> H(enter <i>search_term</i>, Submit)
+    H --> |GET request| Get[(fa:fa-eye VIEW <i>search.py<i>)]
+    Get --> I{fa:fa-search</br>
+            <i>search_term</i> == entry ?</br>
+            <i>search_term</i> ~= entry ?</br>
+            <i>search_term</i> != entry ?   }
+    I --> |<i>search_term<i>==entry| D
+    I --> |<i>search_term</i>=?entry| K[(fa:fa-book TEMPLATE-<i>search.html</i> with results)]
+    K --> |Click Result item| D
+    I --> |<i>search_term</i> != entry| L[(fa:fa-book TEMPLATE-<i>not_found.html</i>)]
+
+    M[fa:fa-link Sidebar-<i>Create New Page</i>] --> N[fa:fa-book TEMPLATE-<i>new_entry.html</i>]
+        style M fill: #ef6
+    N --> O(content in MarkDown syntax, Submit)
+    O -->|POST request| Post[(fa:fa-eye VIEW <i>new_entry.py<i>)]
+    Post --> P{fa:fa-gift</br>
+            <i>new_entry == old_entry ?</i></br>
+            <i>new_entry != old_entry ?</i></br> }
+    P --> |<i>new_entry == old_entry| Q[(fa:fa-book TEMPLATE-<i>page_exists.html</i>)]
+    Q --> R[(fa:fa-link Sidebar-<i>Go To TITLE</i>)]
+    R --> D
+    P --> |<i>new_entry != old_entry & <br>new_entry accepted| T{fa:fa-question</br> 
+            <i>new_entry.is_valid</i>}    
+    T --> | Is Valid | D
+    T --> | Is NOT Valid</br>return with Validation| O
+
+    V[fa:fa-link Sidebar-<i>Random Page</i>]-->|GET request| D
+        style V fill: #ef6
+    W[fa:fa-link Sidebar-<i>Edit Page</i>] 
+        style W fill:#ef6, stroke:#f6,stroke-width:2px,color:#f66ff,stroke-dasharray: 5 5
+    W -->|GET request| GetEdit[(fa:fa-eye VIEW <i>edit_entry.py<i>)] 
+    GetEdit -->|In <i>entry_template.html<i><br><i>edit_entry.html<i> customised to TITLE| X[(fa:fa-book TEMPLATE-<i>edit_entry.html,</i><br>preloaded content in MarkDown syntax)]
+    X -->|POST request| EditPost[Edit content, Submit]
+    EditPost --> Y{fa:fa-question</br> 
+            <i>new_entry.is_valid</i>}
+    Y --> |Is Valid| D 
+    Y --> |Is NOT Valid</br>return with Validation| EditPost
+
+    C -->|GET request<br>Search Wiki entries| F
+    C -->|GET request<br>Create new entry| M
+    C -->|GET request<br>Open random entry| V
+    C -->|GET request<br>Edit existing entry| W
 end
-```   -->
+```

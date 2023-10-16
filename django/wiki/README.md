@@ -12,6 +12,8 @@
 - [Workflow](#workflow)
     - [Description](#description)
     - [Illustration](#illustration)
+- [Credits](#credits)
+- [Back To Main](/django/README.md) 
 
 <br>
 <hr>
@@ -341,3 +343,8 @@ flowchart TD
     C -->|GET request<br>Edit existing entry| W
 
 ```
+
+
+# Credits
+- Mentored by GPT 3.5, [ChatGPT](https://chat.openai.com/auth/login) 
+- [Favicon Generator](https://favicon.io/favicon-generator/), Created by John Sorrentino

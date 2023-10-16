@@ -1,3 +1,22 @@
+# Contents
+- [Overview](#overview)
+- [Tasks-Solutions](#tasks---solutions)
+    - [Index](#index)
+    - [Entry Page](#entry-page)
+    - [Search Entries](#search-entries)
+    - [New Page](#new-page)
+    - [Edit Page](#edit-page)
+    - [Random Page](#random-page)
+    - [Markdown to HTML Conversion](#markdown-to-html-conversion)
+- [Key Takeaways](#key-takeaways)
+- [Workflow](#workflow)
+    - [Description](#description)
+    - [Illustration](#illustration)
+
+<br>
+<hr>
+
+
 # Overview
 - Assignment is to build an Encyclopedia webapge of web development tools
 - Every encyclopedia provides the possibility for a human-friendly entry format to contribute easily, such as in this case, it is Markdown entries
@@ -12,8 +31,8 @@
 
 
 # Tasks - Solutions
-## Index Page        
-- [X] **Index Page** - hyperlink all the entries listed in the Wiki homepage
+## Index        
+- [X] **Index** - hyperlink all the entries listed in the Wiki homepage
     - Step 1: Check `Django Template Engine` syntax for hyperlink using `<a>` tag
     - Step 2: Use the *route name* `index` for `<a href="">` inside the `li` tag in `index.html` as follows :
         ```html
@@ -163,6 +182,9 @@
         >>> pip3 install markdown2      # install markdown to HTML converter
 
         >>> python -m markdown2 markdown.md > file.html     # convert markdown to HTML in CLI
+
+        # Or inside the view as,
+        html_content = markdown2.markdown(markdown_conent)
         ```
     - [ ] Hard Way - using regular expressions (`re`) in Python without external libraries at all!
 
@@ -221,6 +243,7 @@
 
 
 # Workflow
+## Description
 - Process flow of the application is as listed below :
 - Application executed from `localhost` server
     ```cmd
@@ -257,23 +280,20 @@
     - `renderhtml` renders `entry_template.html` with `html_content`
 
 
-
-<!--- WorkFlow Illustration----
-
-
+## Illustration
 ```mermaid
 flowchart TD
-title[[Wiki-ProcessFlow-ViewsToTemplates]]
-    style title fill:#f78
-
+    title[[Wiki-ProcessFlow-ViewsToTemplates]]
+        style title fill:#f78
     A[Run server] --> B[(fa:fa-eye Default VIEW-<i>index.py</i>)]
         style A fill:#0f0
+    
     B --> C{fa:fa-home Home page-All Entries</br> fa:fa-link Sidebar links}
     C --> |GET request<br>open entry| D[(fa:fa-eye VIEW-<i>renderhtml.py</i>)]
     D -->|render HTML page| E[fa:fa-book TEMPLATE-<i>entry_template.html</i>]
         style D fill:#0f6, stroke:#f6,stroke-width:5px,color:#55ff,stroke-dasharray: 5 5
         style E fill:#5ff, stroke:#f6,stroke-width:5px,color:#f66ff,stroke-dasharray: 5 5
-
+    
     F[fa:fa-link Sidebar-<i>Search Encyclopedia</i>] --> G[fa:fa-book TEMPLATE-<i>search.html</i>]
         style F fill:#ef6
     G --> H(enter <i>search_term</i>, Submit)
@@ -304,6 +324,7 @@ title[[Wiki-ProcessFlow-ViewsToTemplates]]
 
     V[fa:fa-link Sidebar-<i>Random Page</i>]-->|GET request| D
         style V fill: #ef6
+    
     W[fa:fa-link Sidebar-<i>Edit Page</i>] 
         style W fill:#ef6, stroke:#f6,stroke-width:2px,color:#f66ff,stroke-dasharray: 5 5
     W -->|GET request| GetEdit[(fa:fa-eye VIEW <i>edit_entry.py<i>)] 
@@ -318,5 +339,5 @@ title[[Wiki-ProcessFlow-ViewsToTemplates]]
     C -->|GET request<br>Create new entry| M
     C -->|GET request<br>Open random entry| V
     C -->|GET request<br>Edit existing entry| W
-end
+
 ```

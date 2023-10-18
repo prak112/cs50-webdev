@@ -21,12 +21,12 @@
 
 
 # Overview
-- Assignment is to build an Encyclopedia webapge of web development tools
-- Every encyclopedia provides the possibility for a human-friendly entry format to contribute easily, such as in this case, it is Markdown entries
+- Assignment is to build an Encyclopedia web application, for example: Wiki for Web Development.
+- Every encyclopedia provides the possibility for a human-friendly entry format to contribute easily, in this case it is through Markdown entries.
 - Every entry should be converted to HTML before rendering which will be done using [`markdown2`](https://github.com/trentm/python-markdown2) library
 
 - Assignment is provided with a zipped file of distribution code consisting of 
-    - pre-built `wiki` project with `encyclopedia` application
+    - pre-built `wiki` django project with Frontend for `encyclopedia` application
     - preset `wiki/settings.py`, `wiki/urls.py` and `encyclopedia/urls.py`
     - `util.py` for handy functions such as, `list_entries`, `get_entry`, `save_entry`, which are self-explanatory and useful for completing the assignment,
     - `entries` folder with Markdown entries which are to be rendered as a HTML file before rendering the view,

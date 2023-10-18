@@ -12,6 +12,7 @@
 - [Workflow](#workflow)
     - [Description](#description)
     - [Illustration](#illustration)
+    - [Video Demo](https://youtu.be/j7CwADYmysk)
 - [Credits](#credits)
 - [Back To Main](/django/README.md) 
 

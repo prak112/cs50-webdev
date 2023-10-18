@@ -18,6 +18,7 @@
     - [Forms](#forms)
     - [Sessions](#sessions)
 - Assignment 1 - [Wiki](/django/wiki/README.md)
+    - [Application video demo](https://youtu.be/j7CwADYmysk)
 
 </br>
 <hr>

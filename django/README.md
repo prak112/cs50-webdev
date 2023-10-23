@@ -22,7 +22,9 @@
     - [Sessions](#sessions)
 - Assignment 1 - [Wiki](/django/wiki/README.md)
     - [Application video demo](https://youtu.be/j7CwADYmysk)
+- [Databases](/django/databases/README.md)
 
+    
 </br>
 <hr>
 
@@ -132,6 +134,7 @@ C --goes to app/views.py--> D[Renders response]
 - In the app, all available views are listed
 - To render a view, change URL from `https://localhost/<app_name>/<view_name>`
 - If the view requires an input parameter, change URL as `https://localhost/<app_name>/<view_name>/<input_parameter>`
+
 
 </br>
 <hr>
@@ -295,3 +298,8 @@ C --goes to app/views.py--> D[Renders response]
 - Hence, server throws an `OperationalError` saying `no such table: django_session`
 - To deal with this, `migrate` the project which allows Django to create all default database tables
 - This resolves the `OperationalError` and launches the application successfully, with built-in session data storage.
+
+
+
+
+

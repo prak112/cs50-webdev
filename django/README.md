@@ -22,7 +22,7 @@
     - [Sessions](#sessions)
 - Assignment 1 - [Wiki](/django/wiki/README.md)
     - [Application video demo](https://youtu.be/j7CwADYmysk)
-- [Databases](/django/databases/README.md)
+- [Databases](/django/databases101/README.md)
 
     
 </br>

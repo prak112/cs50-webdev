@@ -2,7 +2,7 @@
  - [Overview](#overview)
  - [Fundamentals](#fundamentals)
  - [SQLite](#sqlite)
-    - [Syntax](#sqlite-syntax)
+    - [Syntax](#syntax)
     - [Workflow](#workflow)
     - [Working in Command Line](#working-in-command-line)
     - [JOIN tables](#join-tables)

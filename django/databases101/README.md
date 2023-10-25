@@ -1,5 +1,5 @@
 # Contents
- - [Overview](#overview)
+ - [OverView](#overView)
  - [Fundamentals](#fundamentals)
  - [SQLite](#sqlite)
     - [Syntax](#syntax)
@@ -9,10 +9,12 @@
 - [SQL Vulnerabilites](#sql-vulnerabilities)
     - [SQL Injection](#sql-injection)
     - [Race Conditions](#race-conditions)
+- [Django Workflow](#django-workflow)
 - [Django Models](#django-models)
-    - [Workflow](#workflow)
-    - [2-Step Process](#2-step-process)
     - [Model Relationships](#model-relationships)
+- [Django Shell](#django-shell)
+    - [Django ORM](#django-orm-object-relational-mapping)
+        - [ORM Workflow](#orm-workflow)
 
 
 - [Back To Django](/django/README.md)
@@ -21,7 +23,7 @@
 <br>
 <hr>
 
-# Overview
+# OverView
 - To learn and practice :
     - Database essentials in *SQLite*, 
     - Leveraging *Django Models* for data representation, 
@@ -274,59 +276,41 @@
 - Locking database during a transaction until it is done, would be strategic
 
 <br>
+<hr>
+
+# Django Workflow
+- User sends a request through the URL.
+- `urls.py` in the project directory maps the URL to a View function or class.
+- The View function or class in `views.py` handles the request and interacts with the necessary models.
+- The models in `models.py` provide the necessary data to the View.
+- The View renders the response using templates.
+- CRUD operations (Create, Read, Update, Delete) can be performed on the models in models.py using Django's ORM (Object-Relational Mapping).
+- Models can be managed and manipulated using the Django Admin web interface
+
+```mermaid
+graph TB
+    A[User sends request through URL]
+    B[<code>urls.py</code> maps URL to view function or class]
+    C[View function or class interacts with models in <code>models.py</code>]
+    D[Models provide data to <code>views.py</code>]
+    E[Views render the response using templates]
+    F[CRUD operations performed on models using Django's ORM]
+    G[Models managed using Django Admin web interface]
+
+    A --> B
+    B --> C
+    C --> D
+    D --> E
+    E --> F
+    F --> G
+    G --> B
+```
+<br>
+<hr>
 
 # Django Models
-- *Django Models* help in implementing and managing databases and tables without worrying about SQL syntax or SQL vulnerabilities.
-
-## Workflow
-- This procedure starts with standard creation of project and app using *Django*
-- Firstly intialize `settings.py` in the project and `urls.py` in the project and the app 
-- Create a `class` in `models.py` with instructions that would add information about the *Models*. For example :  
-    ```python
-    from django.db import models
-
-    class Flight(models.Model):
-    origin = models.CharField(max_length=72)
-    destination = models.CharField(max_length=72)
-    duration = models.IntegerField()
-    ```
-### 2-Step Process
-1. Updated information would be implemented in `migrations` directory to instruct database with changes
-    ```cmd
-    $ path/to/project> python manage.py makemigrations
-    ```
-2. Updated `migrations` should be applied to the database to reflect changes in *Models*
-    ```cmd
-    $ path/to/project> python manage.py migrate
-    ```
-- Updated database can be accessed through *Django*'s in-built `shell`
-    ```cmd
-    $ path/to/project> python manage.py shell
-
-    >>> from flights.models import Flight                                       rem import model
-    >>> f = Flight(origin="Helsinki", destination="Hyderabad", duration=650)    rem insert data
-    >>> f.save()                rem save data
-    >>> Flight.objects.all()    rem display all saved objects
-    <QuerySet [<Flight: Flight object (1)>]>
-    >>> Flight.objects.first()  rem display first object
-    <Flight: Flight object (1)>
-    ```
-- For a detailed view of the object, a string representation function (`def __str(self)__`) can be created in Flight `class`
-- To view the changes, `exit()` from `shell` and access database again
-- Represented string can be viewed by repeating the same procedure as above, since, `shell` has temporary memory
-- Independent values of object can also be viewed by accessing `class properties`
-    ```cmd
-    >>> from flights.models import Flight 
-    >>> f1 = Flight.objects.first()
-    >>> f1.id
-    1
-    >>> f1.origin
-    'Helsinki'
-    >>> f1.destination
-    'Hyderabad'
-    >>> f1.duration
-    650
-    ```
+- Models provide the structure to interact with *Django ORM* tool through *classes* and *properties*
+- Models are defined with [relationships](#model-relationships) to one another, similar to a Relational Database
 
 ## Model Relationships
 - *Models* exist with relationships just like SQL tables
@@ -337,6 +321,8 @@
     - *"If I know Refernce field (Foreign Key column) value, What would I label the result set generated with Reference field value as the filter ? "* 
     <br> OR
     - *"With this value as filter, what category of results can be generated ?"*
+    <br>
+    - *similar to SQL query, SELECT * FROM table WHERE filter*
     ```python
     ...
 
@@ -371,5 +357,72 @@
         # Many-To-Many Relationships of relating multiple Forests-To-multiple Animals
         habitat = model.ManyToManyField(Forest)
     ```
-- Changes in `models.py` are to applied to the database by migrating changes through [2-step process](#2-step-process)
+- Changes in `models.py` are to applied to the database by migrating changes through [2-step process](#orm-workflow)
+
+<br>
+
+# Django Shell
+- *Django shell* is a CLI provided by Django that allows to interactively execute *Python* code within the context of a Django project. 
+- It provides a convenient way to test and explore your Django application, including working with the ORM.
+
+- In *Django shell*, models can be imported and CRUD operations can be performed. 
+- Arbitrary *Python* code can also be executed to perform other tasks related to Django application.
+
+## Django ORM (Object Relational Mapping)
+- *Django Shell* provides an abstraction layer tool (ORM) to interact with databases
+
+- *Django ORM* allows to define, manipulate databases, tables, records using *Python* by tinkering with Models' classes and its properties
+- *Django ORM* help in implementing and managing databases and tables without worrying about SQL syntax or SQL vulnerabilities.
+- *Django ORM*, that encompasses the mapping of *Python* objects to database tables and the API for interacting with those objects.
+
+- The procedure to use *Django ORM* starts with standard creation of project and app using *Django*
+- Firstly intialize `settings.py` in the project and `urls.py` in the project and the app 
+- Create a `class` in `models.py` with instructions that would add information about the *Models*. For example :  
+    ```python
+    from django.db import models
+
+    class Flight(models.Model):
+    origin = models.CharField(max_length=72)
+    destination = models.CharField(max_length=72)
+    duration = models.IntegerField()
+    ```
+### ORM Workflow
+1. Updated information would be implemented in `migrations` directory to instruct database with changes
+    ```cmd
+    $ path/to/project> python manage.py makemigrations
+    ```
+2. Updated `migrations` should be applied to the database to reflect changes in *Models*
+    ```cmd
+    $ path/to/project> python manage.py migrate
+    ```
+- Updated database can be accessed through *Django*'s in-built `shell`
+    ```cmd
+    $ path/to/project> python manage.py shell
+
+    >>> from flights.models import Flight                                       rem import model
+    >>> f = Flight(origin="Helsinki", destination="Hyderabad", duration=650)    rem insert data
+    >>> f.save()                rem save data
+    >>> Flight.objects.all()    rem display all saved objects
+    <QuerySet [<Flight: Flight object (1)>]>
+    >>> Flight.objects.first()  rem display first object
+    <Flight: Flight object (1)>
+    ```
+- For a detailed View of the object, a string representation function (`def __str(self)__`) can be created in Flight `class`
+- To View the changes, `exit()` from `shell` and access database again
+- Represented string can be Viewed by repeating the same procedure as above, since, `shell` has temporary memory
+- Independent values of object can also be Viewed by accessing `class properties`
+    ```cmd
+    >>> from flights.models import Flight 
+    >>> f1 = Flight.objects.first()
+    >>> f1.id
+    1
+    >>> f1.origin
+    'Helsinki'
+    >>> f1.destination
+    'Hyderabad'
+    >>> f1.duration
+    650
+    ```
+
+
 

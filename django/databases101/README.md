@@ -3,19 +3,30 @@
  - [Fundamentals](#fundamentals)
  - [SQLite](#sqlite)
     - [Syntax](#syntax)
-    - [Workflow](#workflow)
+    - [Access](#access)
     - [Working in Command Line](#working-in-command-line)
     - [JOIN tables](#join-tables)
-- [Possible Issues](#possible-issues)
+- [SQL Vulnerabilites](#sql-vulnerabilities)
     - [SQL Injection](#sql-injection)
     - [Race Conditions](#race-conditions)
+- [Django Models](#django-models)
+    - [Workflow](#workflow)
+    - [2-Step Process](#2-step-process)
+    - [Model Relationships](#model-relationships)
 
+
+- [Back To Django](/django/README.md)
+- [Back To Main](/README.md)
 
 <br>
 <hr>
 
 # Overview
-- To learn Database essentials in *SQLite*, *Django Models*, managing table relationships and *Django Admin*
+- To learn and practice :
+    - Database essentials in *SQLite*, 
+    - Leveraging *Django Models* for data representation, 
+    - Managing table relationships and
+    - *Django Admin* for managing user access
 - CS50W Notes on [Lecture 4 - SQL, Models and Migrations](https://cs50.harvard.edu/web/2020/notes/4/)
 
 # Fundamentals
@@ -102,8 +113,8 @@
     SELECT * FROM users LIMIT 10; /* displays 10 rows with all columns
     ```
 
-## Workflow
-- SQL databases and tables can be managed in 2 ways :
+## Access
+- SQL databases and tables can be managed in the following ways :
 1. **Command Line** ( *IDEAL, (my situation) but project and PATH directories mismatch* )
     - Go To [SQLite Download page](https://www.sqlite.org/download.html)
     - Download *sqlite-tools*
@@ -241,7 +252,7 @@
                                                                 1   Gamer     3
         ```
 
-# Possible Issues
+# SQL Vulnerabilites
 ## SQL Injection
 - SQL query syntax if deployed in its raw form would lead to exposure to hackers
 - For example, consider the following simple query for a user accessing the application :
@@ -261,3 +272,104 @@
 ## Race Conditions
 - Events happening on parallel threads could conflict database operations
 - Locking database during a transaction until it is done, would be strategic
+
+<br>
+
+# Django Models
+- *Django Models* help in implementing and managing databases and tables without worrying about SQL syntax or SQL vulnerabilities.
+
+## Workflow
+- This procedure starts with standard creation of project and app using *Django*
+- Firstly intialize `settings.py` in the project and `urls.py` in the project and the app 
+- Create a `class` in `models.py` with instructions that would add information about the *Models*. For example :  
+    ```python
+    from django.db import models
+
+    class Flight(models.Model):
+    origin = models.CharField(max_length=72)
+    destination = models.CharField(max_length=72)
+    duration = models.IntegerField()
+    ```
+### 2-Step Process
+1. Updated information would be implemented in `migrations` directory to instruct database with changes
+    ```cmd
+    $ path/to/project> python manage.py makemigrations
+    ```
+2. Updated `migrations` should be applied to the database to reflect changes in *Models*
+    ```cmd
+    $ path/to/project> python manage.py migrate
+    ```
+- Updated database can be accessed through *Django*'s in-built `shell`
+    ```cmd
+    $ path/to/project> python manage.py shell
+
+    >>> from flights.models import Flight                                       rem import model
+    >>> f = Flight(origin="Helsinki", destination="Hyderabad", duration=650)    rem insert data
+    >>> f.save()                rem save data
+    >>> Flight.objects.all()    rem display all saved objects
+    <QuerySet [<Flight: Flight object (1)>]>
+    >>> Flight.objects.first()  rem display first object
+    <Flight: Flight object (1)>
+    ```
+- For a detailed view of the object, a string representation function (`def __str(self)__`) can be created in Flight `class`
+- To view the changes, `exit()` from `shell` and access database again
+- Represented string can be viewed by repeating the same procedure as above, since, `shell` has temporary memory
+- Independent values of object can also be viewed by accessing `class properties`
+    ```cmd
+    >>> from flights.models import Flight 
+    >>> f1 = Flight.objects.first()
+    >>> f1.id
+    1
+    >>> f1.origin
+    'Helsinki'
+    >>> f1.destination
+    'Hyderabad'
+    >>> f1.duration
+    650
+    ```
+
+## Model Relationships
+- *Models* exist with relationships just like SQL tables
+- Fields can be referenced through `model.ForeignKey()` to the *referenced Model*
+- To label a relation between *related Model* and *referenced Model*, `related_name` parameter is to be defined
+- `related_name` creates a reverse relationship between these *Models*. 
+- Defining `related_name` could be simplified by the following questions - 
+    - *"If I know Refernce field (Foreign Key column) value, What would I label the result set generated with Reference field value as the filter ? "* 
+    <br> OR
+    - *"With this value as filter, what category of results can be generated ?"*
+    ```python
+    ...
+
+    # reference model
+    class Department(models.Model):
+        name = model.CharField(max_length=20)
+
+    # related model
+    class Employee(models.Model):
+        name = model.CharField(max_length=50)
+        department = model.ForeignKey(Department, on_delete=models.CASCADE, related_name="employees")
+
+    ```
+
+- A simplified example to differentiate between One-To-Many and Many-To-Many relationships
+    ```python
+    ...
+
+    # reference model
+    class Forest(models.Model):
+        name = model.CharField(max_length=40)
+        location = model.CharField(max_length=40)
+        
+        def __str__(self):
+            return f"Forest {self.name} located in {self.location}"
+        
+    # related model
+    class Animals(models.Model):
+        species = model.CharField(max_length=40)
+        # One-To-Many Relationship of relating each Forest-To-multiple Animals
+        habitat = model.ForeignKey(Forest, on_delete=models.CASCADE)
+        # Many-To-Many Relationships of relating multiple Forests-To-multiple Animals
+        habitat = model.ManyToManyField(Forest)
+    ```
+- Changes in `models.py` are to applied to the database by migrating changes through [2-step process](#2-step-process)
+

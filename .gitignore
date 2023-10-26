@@ -2,8 +2,9 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=windows,visualstudiocode,django
 
 # Files
-# ignore CatMe.png
-*CatMe.png 
+# ignore .png images
+*.png 
+
 
 
 ### Django ###

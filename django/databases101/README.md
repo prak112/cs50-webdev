@@ -12,10 +12,14 @@
 - [Django Workflow](#django-workflow)
 - [Django Models](#django-models)
     - [Model Relationships](#model-relationships)
+    - [Model-View Workflow](#model-view-workflow)
 - [Django Shell](#django-shell)
     - [Django ORM](#django-orm-object-relational-mapping)
-        - [ORM Workflow](#orm-workflow)
+    - [ORM Workflow](#orm-workflow)
+- [Django Admin](#django-admin)
 
+
+<br>
 
 - [Back To Django](/django/README.md)
 - [Back To Main](/README.md)
@@ -359,6 +363,39 @@ graph TB
     ```
 - Changes in `models.py` are to applied to the database by migrating changes through [2-step process](#orm-workflow)
 
+
+## Model-View Workflow
+- *Models* define the data to be presented in the *View* based on the User request URL
+- Defining the data requires dealing with the database
+- As shown [above](#model-relationships), *Models* define structure of database which is implemented upon executing the [2-step process](#orm-workflow)
+- *Views* define how the data is rendered.
+- For example: render an index page to show all flights, but in a browser not in *ORM*
+    ```python
+    # views.py
+    ...
+
+    def index(request):
+        return render(request, "flight/index.html", context={"flights": Flight.objects.all()})
+    ```
+
+    - Before `layout.html` is defined to extend the template
+    ```html
+    <!-- index.html -->
+    {% extends "flights/layout.html"%}
+
+    {% block body %}
+        <h1>Flights</h1>
+        <ul>
+            {% for flight in flights %}
+                <li>Flight {{flight.id}}: {{flight.origin}} To {{flight.destination}}, {{flight.duration}} minutes</li>
+            {% endfor %}
+        </ul>
+    {% endblock %}
+    ```
+    
+    - As a result, the server renders the view
+    ![Alt text](image.png)
+
 <br>
 
 # Django Shell
@@ -386,18 +423,18 @@ graph TB
     destination = models.CharField(max_length=72)
     duration = models.IntegerField()
     ```
-### ORM Workflow
-1. Updated *Models* information in `models.py` would be implemented in `migrations` directory by *Django* 
+## ORM Workflow
+1. Updated *Models* information in `models.py` would be implemented in `migrations/` directory by *Django* 
     - Execute `makemigrations` to create an initialization file depicting the changes to database
     ```cmd
     $ path/to/project> python manage.py makemigrations
     ```
-2. Updated `migrations` should be applied to the database
+2. Updated changes in `migrations/` directory should be applied to the database
     - Execute `migrate` to reflect changes in database, *Models* and *Views*
     ```cmd
     $ path/to/project> python manage.py migrate
     ```
-- Post updating, `migrations` directory would be listed with initialization files depicting recent changes in `models.py`
+- Post updating, `migrations/` directory would be listed with initialization files depicting recent changes in `models.py`
     ```cmd
         ─migrations
         │   0001_initial.py
@@ -444,35 +481,25 @@ graph TB
     >>> f1.duration
     650
     ```
+<br>
 
-### Model-View Workflow
-- *Models* define the data to be presented in the *View* based on the User request URL
-- Defining the data requires dealing with the database
-- As shown [above](#model-relationships), *Models* define structure of database which is implemented upon executing the [2-step process](#orm-workflow)
-- *Views* define how the data is rendered.
-- For example: render an index page to show all flights, but in a browser not in *ORM*
+# Django Admin
+- *Django Admin* allows to manage the *Models* from a web interface 
+- Create *superuser* using `manage.py` in the terminal
+    ```cmd
+    rem Create superuser
+    $ path/to/project> python manage.py createsuperuser
+    ```
+    - Registration procedure requires `Username`, `Email address`, `Password`
+- In the app directory, `flights/`, inside `admin.py` register the created *Models*
     ```python
-    # views.py
+    # admin.py
     ...
+    from flights.models import Airport, Flight
 
-    def index(request):
-        return render(request, "flight/index.html", context={"flights": Flight.objects.all()})
+    # register models
+    admin.site.register(Airport)
+    admin.site.register(Flight)
     ```
-
-    - Before `layout.html` is defined to extend the template
-    ```html
-    <!-- index.html -->
-    {% extends "flights/layout.html"%}
-
-    {% block body %}
-        <h1>Flights</h1>
-        <ul>
-            {% for flight in flights %}
-                <li>Flight {{flight.id}}: {{flight.origin}} To {{flight.destination}}, {{flight.duration}} minutes</li>
-            {% endfor %}
-        </ul>
-    {% endblock %}
-    ```
-    
-    - As a result, the server renders the view
-    ![Alt text](image.png)
+- Run server and access `localhost/admin` to interact with *Django Admin* app
+- Login and perform CRUD operations as required with registered *Models*

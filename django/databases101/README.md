@@ -289,13 +289,13 @@
 
 ```mermaid
 graph TB
-    A[User sends request through URL]
-    B[<code>urls.py</code> maps URL to view function or class]
-    C[View function or class interacts with models in <code>models.py</code>]
+    A[User request-URL]
+    B[<code>urls.py</code> maps URL-View]
+    C[View interacts with <code>models.py</code>]
     D[Models provide data to <code>views.py</code>]
-    E[Views render the response using templates]
-    F[CRUD operations performed on models using Django's ORM]
-    G[Models managed using Django Admin web interface]
+    E[View renders response -> templates]
+    F[CRUD operations on models -> Django ORM]
+    G[Models managed -> Django Admin]
 
     A --> B
     B --> C
@@ -309,7 +309,7 @@ graph TB
 <hr>
 
 # Django Models
-- Models provide the structure to interact with *Django ORM* tool through *classes* and *properties*
+- Models provide the structure to interact with *[Django ORM](#django-orm-object-relational-mapping)* tool through *python classes* and *properties*
 - Models are defined with [relationships](#model-relationships) to one another, similar to a Relational Database
 
 ## Model Relationships
@@ -317,16 +317,16 @@ graph TB
 - Fields can be referenced through `model.ForeignKey()` to the *referenced Model*
 - To label a relation between *related Model* and *referenced Model*, `related_name` parameter is to be defined
 - `related_name` creates a reverse relationship between these *Models*. 
-- Defining `related_name` could be simplified by the following questions - 
-    - *"If I know Refernce field (Foreign Key column) value, What would I label the result set generated with Reference field value as the filter ? "* 
+- Defining `related_name` could be simplified by the following questions : 
+    - *"If I know Foreign Key column value, What would I label the result set generated with it as the filter ? "* 
     <br> OR
     - *"With this value as filter, what category of results can be generated ?"*
     <br>
-    - *similar to SQL query, SELECT * FROM table WHERE filter*
+    - *In SQL query, SELECT * FROM table WHERE "filter", what would be "filter"-label?*
     ```python
     ...
 
-    # reference model
+    # referenced model
     class Department(models.Model):
         name = model.CharField(max_length=20)
 
@@ -341,7 +341,7 @@ graph TB
     ```python
     ...
 
-    # reference model
+    # referenced model
     class Forest(models.Model):
         name = model.CharField(max_length=40)
         location = model.CharField(max_length=40)
@@ -363,7 +363,7 @@ graph TB
 
 # Django Shell
 - *Django shell* is a CLI provided by Django that allows to interactively execute *Python* code within the context of a Django project. 
-- It provides a convenient way to test and explore your Django application, including working with the ORM.
+- It provides a convenient way to test and explore the application, including working with the ORM.
 
 - In *Django shell*, models can be imported and CRUD operations can be performed. 
 - Arbitrary *Python* code can also be executed to perform other tasks related to Django application.
@@ -372,10 +372,10 @@ graph TB
 - *Django Shell* provides an abstraction layer tool (ORM) to interact with databases
 
 - *Django ORM* allows to define, manipulate databases, tables, records using *Python* by tinkering with Models' classes and its properties
-- *Django ORM* help in implementing and managing databases and tables without worrying about SQL syntax or SQL vulnerabilities.
-- *Django ORM*, that encompasses the mapping of *Python* objects to database tables and the API for interacting with those objects.
+- *Django ORM* helps in implementing and managing databases and tables without worrying about SQL syntax or SQL vulnerabilities.
+- *Django ORM* encompasses the mapping of *Python* objects to its database's tables and the API for interacting with those objects.
 
-- The procedure to use *Django ORM* starts with standard creation of project and app using *Django*
+- The procedure to use *Django Models, Shell* and *ORM* starts with [standard creation](/django/README.md/#initiate-django) of project and app using *Django*
 - Firstly intialize `settings.py` in the project and `urls.py` in the project and the app 
 - Create a `class` in `models.py` with instructions that would add information about the *Models*. For example :  
     ```python
@@ -387,24 +387,44 @@ graph TB
     duration = models.IntegerField()
     ```
 ### ORM Workflow
-1. Updated information would be implemented in `migrations` directory to instruct database with changes
+1. Updated *Models* information in `models.py` would be implemented in `migrations` directory by *Django* 
+    - Execute `makemigrations` to create an initialization file depicting the changes to database
     ```cmd
     $ path/to/project> python manage.py makemigrations
     ```
-2. Updated `migrations` should be applied to the database to reflect changes in *Models*
+2. Updated `migrations` should be applied to the database
+    - Execute `migrate` to reflect changes in database, *Models* and *Views*
     ```cmd
     $ path/to/project> python manage.py migrate
+    ```
+- Post updating, `migrations` directory would be listed with initialization files depicting recent changes in `models.py`
+    ```cmd
+        ─migrations
+        │   0001_initial.py
+        │   0002_airport_alter_flight_destination_alter_flight_origin.py
+        │   0003_alter_flight_destination_alter_flight_origin_and_more.py
+        │   0004_airport_alter_flight_destination_alter_flight_origin.py
+        │   __init__.py
     ```
 - Updated database can be accessed through *Django*'s in-built `shell`
     ```cmd
     $ path/to/project> python manage.py shell
+    
+    rem Import model
+    >>> from flights.models import Flight                                       
+    
+    rem Insert data
+    >>> f = Flight(origin="Helsinki", destination="Hyderabad", duration=650)    
+    
+    rem Save data
+    >>> f.save()
 
-    >>> from flights.models import Flight                                       rem import model
-    >>> f = Flight(origin="Helsinki", destination="Hyderabad", duration=650)    rem insert data
-    >>> f.save()                rem save data
-    >>> Flight.objects.all()    rem display all saved objects
+    rem Display all saved objects
+    >>> Flight.objects.all()   
     <QuerySet [<Flight: Flight object (1)>]>
-    >>> Flight.objects.first()  rem display first object
+
+    rem Display first object
+    >>> Flight.objects.first()  
     <Flight: Flight object (1)>
     ```
 - For a detailed View of the object, a string representation function (`def __str(self)__`) can be created in Flight `class`
@@ -412,6 +432,7 @@ graph TB
 - Represented string can be Viewed by repeating the same procedure as above, since, `shell` has temporary memory
 - Independent values of object can also be Viewed by accessing `class properties`
     ```cmd
+    rem Access object properties
     >>> from flights.models import Flight 
     >>> f1 = Flight.objects.first()
     >>> f1.id
@@ -424,5 +445,34 @@ graph TB
     650
     ```
 
+### Model-View Workflow
+- *Models* define the data to be presented in the *View* based on the User request URL
+- Defining the data requires dealing with the database
+- As shown [above](#model-relationships), *Models* define structure of database which is implemented upon executing the [2-step process](#orm-workflow)
+- *Views* define how the data is rendered.
+- For example: render an index page to show all flights, but in a browser not in *ORM*
+    ```python
+    # views.py
+    ...
 
+    def index(request):
+        return render(request, "flight/index.html", context={"flights": Flight.objects.all()})
+    ```
 
+    - Before `layout.html` is defined to extend the template
+    ```html
+    <!-- index.html -->
+    {% extends "flights/layout.html"%}
+
+    {% block body %}
+        <h1>Flights</h1>
+        <ul>
+            {% for flight in flights %}
+                <li>Flight {{flight.id}}: {{flight.origin}} To {{flight.destination}}, {{flight.duration}} minutes</li>
+            {% endfor %}
+        </ul>
+    {% endblock %}
+    ```
+    
+    - As a result, the server renders the view
+    ![Alt text](image.png)

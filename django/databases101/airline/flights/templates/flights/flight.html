@@ -1,0 +1,13 @@
+{% extends "flights/layout.html" %}
+
+{% block content %}
+    <h1>Flight HHF{{flight.id}}</h1>
+    <ul>
+        <li><b>Origin</b> : <br>{{flight.origin}} </li><br>
+        <li><b>Destination</b> : <br> {{flight.destination}}</li><br>
+        <li><b>Duration</b> : <br> {{flight.duration}} minutes</li><br>
+    </ul>
+
+    <a href="{% url 'index' %}">Back To all Flights</a>
+
+{% endblock %}

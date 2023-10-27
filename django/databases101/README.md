@@ -1,5 +1,14 @@
+# OverView
+- To learn and practice :
+    - Database essentials in *SQLite*, 
+    - Leveraging *Django Models* for data representation, 
+    - Managing table relationships and
+    - *Django Admin* for managing user access
+- CS50W Notes on [Lecture 4 - SQL, Models and Migrations](https://cs50.harvard.edu/web/2020/notes/4/)
+
+<br>
+
 # Contents
- - [OverView](#overView)
  - [Fundamentals](#fundamentals)
  - [SQLite](#sqlite)
     - [Syntax](#syntax)
@@ -25,15 +34,10 @@
 - [Back To Main](/README.md)
 
 <br>
-<hr>
 
-# OverView
-- To learn and practice :
-    - Database essentials in *SQLite*, 
-    - Leveraging *Django Models* for data representation, 
-    - Managing table relationships and
-    - *Django Admin* for managing user access
-- CS50W Notes on [Lecture 4 - SQL, Models and Migrations](https://cs50.harvard.edu/web/2020/notes/4/)
+[![built with Codeium](https://codeium.com/badges/main)](https://codeium.com)
+
+<hr>
 
 # Fundamentals
 - Forms of databases - 

@@ -507,3 +507,34 @@ graph TB
     ```
 - Run server and access `localhost/admin` to interact with *Django Admin* app
 - Login and perform CRUD operations as required with registered *Models*
+
+- *Django Admin* interface can be personalized for simplifying CRUD operation specific to the purpose of the model
+- More information to dig in its [documentation](https://docs.djangoproject.com/en/4.2/ref/contrib/admin/)
+- For example: 
+    - Model `Passenger`'s admin view provides, chosen flights (highlighted) and available flights in the same text box
+    - It can be modified to seperate the chosen flights and available flights in seperate text boxes, as follows
+        ```python
+        # admin.py
+        ...
+
+        class PassengerAdmin(admin.ModelAdmin):
+            # display the model objects filtered by selected/unselected status
+
+            filter_horizontal = ("flight", )    # display in the same row
+
+            # OR
+            # filter_vertical = ("flight", )    # display in the same column
+
+        admin.site.register(Passenger, PassengerAdmin)
+        ```
+
+
+## Django Authentication
+- User authentication can be regulated using `django.contrib.auth` library
+- Users are created on *Django Admin* interface or in *Django ORM*
+- A seperate application for `users` creates a regulated access to the main application
+
+- **TODO** 
+    - [ ] route url to view all flights
+    - [ ] create sessions for each user
+

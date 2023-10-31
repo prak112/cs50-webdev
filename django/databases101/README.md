@@ -529,12 +529,50 @@ graph TB
         ```
 
 
-## Django Authentication
+## User Authentication
 - User authentication can be regulated using `django.contrib.auth` library
 - Users are created on *Django Admin* interface or in *Django ORM*
 - A seperate application for `users` creates a regulated access to the main application
 
-- **TODO** 
-    - [ ] route url to view all flights
-    - [ ] create sessions for each user
+- [X] Route url to view all flights
+    - Define namespace within each app's `urls.py` as follows:
+        ```python
+        # urls.py
+
+        ...
+        # define namespace
+        app_name = "app_name"
+        
+        urlpatterns = [
+            ...
+        ]
+        ```
+    - Adjust route URLs in all templates within the apps to refer to their views. For example:
+        ```html
+        <!--flights app, index.html -->
+        ...
+        {% block content %}
+            <h1>Flights</h1>
+            <ul>
+                {% for flight in flights %}
+                    <li><a href="{% url 'flights:flight' flight.id %}">Flight HHF{{flight.id}}</a> : {{flight.origin}} To {{flight.destination}}</li>
+                {% endfor %}
+            </ul>
+            <div><a href="{% url 'users:index' %}">Back To Profile</a></div>
+        {% endblock %}
+        ...
+
+        <!-- users app, home.html -->      
+        {% block content %}
+        ...
+        <h3>Check Flights</h3>
+            <li><a href="{% url 'users:redirect_to_flights' %}">All Flights</a></li>
+            <br>
+            <div><a href="{% url 'users:logout' %}">Log Out</a></div>           
+        {% endblock %}
+        ...
+
+        ```
+    - Debug for any possible issues during routing URLs
+- [ ] Create sessions for each user
 

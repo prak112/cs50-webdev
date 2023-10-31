@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 
@@ -45,4 +45,8 @@ def logout_view(request):
         "message" : """
                     Logged out successfully!
                     """
-    })    
+    })
+
+
+def redirect_to_flights(request):
+    return redirect(reverse('flights:index'))

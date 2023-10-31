@@ -12,9 +12,9 @@
         <li>Email : {{ request.user.email }} </li>
     </ul>
     <h3>Check Flights</h3>
-
+        <li><a href="{% url 'users:redirect_to_flights' %}">All Flights</a></li>
     <br>
-    <a href="{% url 'logout' %}">Log Out</a>
+    <a href="{% url 'users:logout' %}">Log Out</a>
 
 
 {% endblock %}

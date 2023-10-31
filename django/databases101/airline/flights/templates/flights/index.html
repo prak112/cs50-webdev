@@ -5,7 +5,8 @@
     <h1>Flights</h1>
     <ul>
         {% for flight in flights %}
-            <li><a href="{% url 'flight' flight.id %}">Flight HHF{{flight.id}}</a> : {{flight.origin}} To {{flight.destination}}</li>
+            <li><a href="{% url 'flights:flight' flight.id %}">Flight HHF{{flight.id}}</a> : {{flight.origin}} To {{flight.destination}}</li>
         {% endfor %}
     </ul>
+    <div><a href="{% url 'users:index' %}">Back To Profile</a></div>
 {% endblock %}

@@ -4,18 +4,18 @@ from django.urls import reverse
 
 from django.contrib.auth import authenticate, login, logout
 
-#TODO-
-# create sessions
-# create hyperlink to all flights
-
-
+# from django.contrib.sessions.models import Session
+# Sessions - 
+# - useful to separate user's data
+# - for ex. ecommerce store- each session can consist data about 
+#   - user profile, user cart items, user checkout
 
 # create views here
 def index(request):
-        if not request.user.is_authenticated:
-            return HttpResponseRedirect(reverse("login"))
-        else:
-            return render(request, "users/home.html")
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect(reverse('users:login'))
+    else:
+        return render(request, "users/home.html")
     
 
 def login_view(request):
@@ -26,7 +26,11 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user:
             login(request, user)
-            return HttpResponseRedirect(reverse("index"))
+            
+            # create user session
+            request.session['username'] = user.username
+
+            return HttpResponseRedirect(reverse('users:index'))
         else:
             return render(request, "users/login.html", context={
                 "message" : """
@@ -41,6 +45,10 @@ def login_view(request):
 
 def logout_view(request):
     logout(request=request)
+
+    # clear user session
+    request.session.clear()
+
     return render(request, "users/login.html", context={
         "message" : """
                     Logged out successfully!

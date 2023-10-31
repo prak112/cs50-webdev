@@ -34,5 +34,5 @@ def add_passenger(request, flight_id):
         passenger.flight.add(flight)
 
         # redirect to modified flight page
-        return HttpResponseRedirect(reverse("flight", args=(flight_id,)))
+        return HttpResponseRedirect(reverse("flights:flight", args=(flight_id,)))
 

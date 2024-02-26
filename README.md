@@ -9,7 +9,7 @@
     2. Git
     3. Python
     4. [Django](/django/README.md)
-    5. SQL, Models and Migrations
+    5. [SQL, Models and Migrations](/django/databases101/README.md)
     6. JavaScript
     7. User Interfaces
     8. Testing, CI/CD

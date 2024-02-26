@@ -1,4 +1,4 @@
-# OverView
+# Overview
 - To learn and practice :
     - Database essentials in *SQLite*, 
     - Leveraging *Django Models* for data representation, 

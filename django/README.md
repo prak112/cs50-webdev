@@ -1,7 +1,7 @@
 # Overview
 - Learning Django essentials through CS50 lectures and assignments for building [DevSchool's course project](https://github.com/prak112/DevSchool-Project)
-- CS50 Notes - [Django lecture](https://cs50.harvard.edu/web/2020/notes/3/)
-- CS50 Notes - [SQL, Models and Migrations](https://cs50.harvard.edu/web/2020/notes/4/)
+- CS50 Notes - [Django](https://cs50.harvard.edu/web/2020/notes/3/)
+
 
 <br>
 

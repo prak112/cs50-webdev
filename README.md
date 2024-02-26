@@ -10,7 +10,7 @@
     3. Python
     4. [Django](/django/README.md)
     5. [SQL, Models and Migrations](/django/databases101/README.md)
-    6. JavaScript
+    6. [JavaScript](/javascript/README.md)
     7. User Interfaces
     8. Testing, CI/CD
     9. Scalability and Security

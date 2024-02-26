@@ -301,17 +301,23 @@ graph TB
     B[<code>urls.py</code> maps URL-View]
     C[View interacts with <code>models.py</code>]
     D[Models provide data to <code>views.py</code>]
-    E[View renders response -> templates]
-    F[CRUD operations on models -> Django ORM]
-    G[Models managed -> Django Admin]
-
+    E[View renders response -> Templates]
+    F[User interaction with Templates]
     A --> B
     B --> C
     C --> D
     D --> E
     E --> F
-    F --> G
-    G --> B
+    F --> A
+
+    G[Admin Login]
+    G -->|Django Shell| H
+    G -->|Admin UI|H
+    H[Perfroms CRUD operations on Models/Tables]
+    H --> I[Models managed]
+    J[Changes migrated to Database]
+    I --> J
+    J -->|changes reflected in App UI| F 
 ```
 <br>
 <hr>

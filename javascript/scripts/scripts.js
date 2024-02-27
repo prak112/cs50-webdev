@@ -1,46 +1,43 @@
 let colorCounter = 0;
-document.getElementById('say-hello').onclick = sayHello;    // sayHello() returns function value, sayHello calls the function
-document.getElementById('change-color').onclick = changeColor;
+// sayHello() -returns function value, sayHello -calls the function
+// document.getElementById('say-hello').onclick = sayHello;    
+// document.getElementById('change-color').onclick = changeColor;
+document.querySelector('form').onsubmit = sayHello;
+
+// change h1 font color
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.color').forEach(function(button){
+        button.onclick = function() {
+            document.querySelector('h1').style.color = button.dataset.color;
+        }
+    })
+
+    document.querySelector('.color').addEventListener('click', changeCounter);  // bug-doesn't update for all buttons
+});
 
 
-function changeColor(){
-    // Random colors
-    // const letters = '0123456789ABCDEF';
-    // let hexcolor = '#';
-    // for (let i = 0; i < 6; i++){
-    //     hexcolor += letters[Math.floor(Math.random() * letters.length)];
-    // }
-    
-    // specific colors
-    const colors = ['#FF0000', '#0BA807', '#FF00FF', '#FFFFFF', '#0287EF'];
-    let hexcolor = colors[Math.floor(Math.random() * colors.length)];
-    document.body.style.backgroundColor = hexcolor;
-
-    let changeColorButton = document.getElementById('change-color');    
-    changeColorButton.addEventListener('click', changeCounter);
-
-    colorNarrator = document.querySelector('span')
-    colorNarrator.innerHTML = hexcolor;
-    if (hexcolor == '#0BA807'){
-        colorNarrator.innerHTML = 'GREEN! Yaay!';
-    }
-    else if (hexcolor == '#FF0000'){
-        colorNarrator.innerHTML = 'RED! Oh no!';
-    }
-    else {
-        colorNarrator.innerHTML += ' ...Not GREEN! Booo!';
-    }
-}
-
-function sayHello(){
-    let greeting = document.createElement('p');
-    let userName = prompt('What is your name?');
-    greeting.textContent = 'Hello, ' + userName + '!';
-    document.body.appendChild(greeting);
-    document.getElementById('say-hello').remove();
-}
+// function changeColor(){
+//     // change background color between specific colors
+//     const colors = ['red', 'pink', 'green', 'yellow', 'brown'];
+//     let hexcolor = colors[Math.floor(Math.random() * colors.length)];
+//     document.body.style.backgroundColor = hexcolor;
 
 
+
+//     colorNarrator = document.querySelector('span')
+//     colorNarrator.innerHTML = hexcolor;
+//     if (hexcolor == 'green'){
+//         colorNarrator.innerHTML = 'GREEN! Yaay!';
+//     }
+//     else if (hexcolor == 'red'){
+//         colorNarrator.innerHTML = 'RED! Oh no!';
+//     }
+//     else {
+//         colorNarrator.innerHTML += ' ...Not GREEN! Booo!';
+//     }
+// }
+
+// count number of times color was changed
 function changeCounter(){
     colorCounter++;
     document.getElementById('change-counter').innerHTML = colorCounter;
@@ -48,4 +45,15 @@ function changeCounter(){
         alert(`Color was changed ${colorCounter} times!`);
     }
 }
+
+// prompt user input to display greeting
+function sayHello(){
+    const name = document.querySelector('#name').value;
+    // let greeting = document.createElement('h2');
+    // greeting.textContent = 'Hello, ' + name + '!';
+    // document.body.appendChild(greeting);
+    alert(`Hello, ${name}!`)
+}
+
+
 

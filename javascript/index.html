@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -7,9 +8,20 @@
 </head>
 <body>
     <h1>Welcome to JavaScript practice!</h1>
-    <button id = "change-color">Change Color</button>
-    <button id = "say-hello">Hello!</button>
-    <p>The color is <span></span></p>
+    <!-- <button id = "change-color">Change Color</button> -->
+    <!-- <button id = "say-hello">Hello!</button> -->
+    <form>
+        <input autofocus id="name" placeholder="Name" type="text" autocomplete="off"/>
+        <input value="Enter" type="submit" />
+    </form>
+    <p>
+        Change color to :
+        <button class="color" data-color="red">Red</button>
+        <button class="color" data-color="purple">Purple</button>
+        <button class="color" data-color="green">Green</button>
+        <button class="color" data-color="cyan">Cyan</button>
+        <button class="color" data-color="brown">Brown</button>
+    </p>
     <p>The color was changed <span id="change-counter">0</span> times!</p>
 </body>
 </html>

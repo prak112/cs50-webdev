@@ -2,17 +2,21 @@ let colorCounter = 0;
 // sayHello() -returns function value, sayHello -calls the function
 // document.getElementById('say-hello').onclick = sayHello;    
 // document.getElementById('change-color').onclick = changeColor;
-document.querySelector('form').onsubmit = sayHello;
+document.querySelector('form').onsubmit = (event) => {
+    event.preventDefault();
+    sayHello();
+};
 
-// change h1 font color
+// change font color
 document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.color').forEach(function(button){
         button.onclick = function() {
-            document.querySelector('h1').style.color = button.dataset.color;
+            document.body.style.color = button.dataset.color;
         }
     })
 
-    document.querySelector('.color').addEventListener('click', changeCounter);  // bug-doesn't update for all buttons
+    document.querySelector('.color').addEventListener('click', changeCounter);  
+    // bug-updates only for 'red', doesn't update for other buttons
 });
 
 
@@ -49,11 +53,12 @@ function changeCounter(){
 // prompt user input to display greeting
 function sayHello(){
     const name = document.querySelector('#name').value;
-    // let greeting = document.createElement('h2');
-    // greeting.textContent = 'Hello, ' + name + '!';
-    // document.body.appendChild(greeting);
-    alert(`Hello, ${name}!`)
+    let greeting = document.createElement('h2');
+    greeting.textContent = 'Hello, ' + name + '!';
+    document.body.appendChild(greeting);
+    document.querySelector('#name').value = '';
 }
+//console.log('buttons_forms.js loaded!');
 
 
 

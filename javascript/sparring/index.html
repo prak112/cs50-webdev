@@ -1,27 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-US">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JavaScript Practice</title>
-    <script src="spar.js" defer></script>
+    <script src="buttons_forms.js" defer></script>
 </head>
 <body>
     <h1>Welcome to JavaScript practice!</h1>
     <!-- <button id = "change-color">Change Color</button> -->
     <!-- <button id = "say-hello">Hello!</button> -->
-    <form><!---sayHello-->
+    <form id="say-hello"><!---sayHello-->
         <input autofocus id="name" placeholder="Name" type="text" autocomplete="off"/>
         <input value="Enter" type="submit" />
     </form>
-    <p><!--change h1 font color-->
-        Change color to :
-        <button class="color" data-color="red">Red</button>
-        <button class="color" data-color="purple">Purple</button>
-        <button class="color" data-color="green">Green</button>
-        <button class="color" data-color="cyan">Cyan</button>
-        <button class="color" data-color="brown">Brown</button>
-    </p>
-    <p>The color was changed <span id="change-counter">0</span> times!</p>
+    <!--change font color-->
+    <div>
+        <p>
+            Change Font color :
+            <button class="color" data-color="red">Red</button>
+            <button class="color" data-color="purple">Purple</button>
+            <button class="color" data-color="green">Green</button>
+            <button class="color" data-color="blue">Blue</button>
+            <button class="color" data-color="brown">Brown</button>
+        </p>
+    </div>
+    <!--change background color-->
+    <div>
+        <p>
+            Change Background color :
+            <select id="color-dropdown">
+                <option value="" default></option>
+                <option value="crimson">Crimson</option>
+                <option value="teal">Teal</option>
+                <option value="cyan">Cyan</option>
+                <option value="lavender">Lavender</option>
+            </select>
+        </p>
+    </div>
+    <script src="dropdown.js" defer></script>
+    <!-- <p>The color was changed <span id="change-counter">0</span> times!</p> -->
 </body>
 </html>

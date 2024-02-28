@@ -9,6 +9,24 @@ Practicing Javascript by implementing concepts (in my own way) learnt from CS50 
 # Concepts Learned
 ## CS50 W
 - Functions
+    - Arrow  (`=>`) notation for `function`
+        ```javascript
+            // default notation
+            document.addEventListener('DOMContentLoaded', function (parameter) {
+                //function logic
+            };
+            ...
+            // arrow notation
+            document.addEventListener('DOMContentLoaded', parameter => {
+                //function logic
+            };
+            ...
+            // arrow notation - if no parameters
+            document.addEventListener('DOMContentLoaded', () => {
+                //function logic
+            }
+            ...
+        ```
 - Complications of misplacing keywords (for ex. `let` and `const`)
 - DOM Manipulation
     - `querySelector`
@@ -59,8 +77,45 @@ Practicing Javascript by implementing concepts (in my own way) learnt from CS50 
         - bitwise AND, OR, XOR assignments
         - logical AND, OR assignments
 
+<hr>
+<hr>
 
-## GitHub CoPilot
+# Debugger Logs
+## CoPilot (GitHub/Codeium)
+### Regular `function()` vs Arrow function `() =>`
+-  In complicated terms:
+    - Value of `this` keyword is set based on how the function is called. It could be :
+        - Global object, 
+        - Object that the function is a method of, 
+        - New instance in case of a constructor call, or
+        - Specified object if the function is called with `apply/call/bind`.
+- In simpler terms :
+    - regular `function()` : `this` keyword is referred to an object in the global context, i.e., an event, instance or variable defined INSIDE the function
+    - arrow function `() =>` : `this` keyword is referred to an object in the sorrounding context, i.e., an event, instance or variable either defined OUTSIDE the function or a Global object (if any)
+- For example, in my code :
+    - The Bug :
+    ```javascript
+        document.addEventListener('DOMContentLoaded', () => {   // refers to a global event -which cannot be reached
+        document.querySelector('#color-dropdown').onchange = () => {    // refers to global event/HTML element -which cannot be reached
+            document.body.style.backgroundColor = this.value;
+        }
+    });
+    ```
+    - The Solution :
+    ```javascript
+        document.addEventListener('DOMContentLoaded', function() {   // refers to a global event -which is reachable
+        document.querySelector('#color-dropdown').onchange = function() {    // refers to global event/HTML element -which is reachable
+            document.body.style.backgroundColor = this.value;
+        }
+    });
+    ```
+- In layman terms, I would think :
+    - regular `function()` = 'original' defintion,
+    - arrow function `() =>` = 'delegated' definition.
+
+<hr>
+
+### HTML `form` Auto-Refresh
 - `preventDefault()` method to prevent webpage auto-refresh when using `<form>` element
     ```javascript
         function(event){
@@ -68,4 +123,5 @@ Practicing Javascript by implementing concepts (in my own way) learnt from CS50 
             anotherFunction();
         }
     ```
+<hr>
 

@@ -123,5 +123,14 @@ Practicing Javascript by implementing concepts (in my own way) learnt from CS50 
             anotherFunction();
         }
     ```
+- In the same context as above, to prevent form data submission to server for handling Client-side interaction,
+    ```javascript
+        function(){
+            ...
+            //function logic
+            ...
+            return false; // enables Client-side interaction
+        }
+    ```
 <hr>
 

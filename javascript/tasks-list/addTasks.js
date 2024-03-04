@@ -1,9 +1,7 @@
-// if page active after period of inactivity
-const tasks = retrieveTasks();
+// collect task-list items
+const allTasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
-document.addEventListener('DOMContentLoaded', function() {
-    //retrieveTasks();
-
+document.addEventListener('DOMContentLoaded', function() {    
     // if page active
     addTask();
 
@@ -16,57 +14,25 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-function retrieveTasks(){
-    // retrieve from localStorage
-    let allTasks = localStorage.getItem('tasksObject');
-    
-    // parse allTasks from string to array
-    allTasks = isNaN(allTasks) ? [] : JSON.parse(allTasks);
-
-    // validate localStorage
-    if (!allTasks || allTasks.length < 1){
-        //document.getElementById('task-list').innerHTML = 'Your tasks are done!\n';
-        document.getElementById('clear-tasks').style.display = "none";
-        let tasks = [];
-
-        return tasks;
-    }
-    else if (allTasks.length > 1) {
-        //document.querySelector('#task-list').innerHTML = 'Tasks for the day!\n';
-        document.getElementById('clear-tasks').style.display = "block";
-
-        for (let i=0; i < allTasks.length; i++){
-            const li = document.createElement('li');
-            li.innerHTML = allTasks[i];
-            document.querySelector('#task-list').append(li);
-        }
-
-        return allTasks;
-    }
-}
-
-
-
+// add form input to task list
 function addTask(){
     // add list item to task-list
     document.querySelector('form').onsubmit = function(event) {
         event.preventDefault();
-
-        // update tasks array
         
-        // add new task
+        // add task to allTasks
         let task = document.querySelector('#task').value;
-        tasks.push(task);        
+        allTasks.push(task);        
         
         // add task as list item
         const li = document.createElement('li');
         li.innerHTML = task;
         document.querySelector('#task-list').append(li);
 
-        // pushing to localStorage
-        localStorage.setItem('tasksObject', JSON.stringify(tasks));
+        // push allTasks to localStorage
+        localStorage.setItem('tasks', JSON.stringify(allTasks));
 
-        // reset input and submit
+        // reset form - input and submit
         document.querySelector('#task').value = ''; // clear input after submit
         document.getElementById('submit').disabled = true; // disable submit
 
@@ -75,7 +41,7 @@ function addTask(){
 }
 
 
-
+// validate submit button
 function toggleSubmitButton() {
     // disable submit button, by default
     let submitButton = document.getElementById('submit');
@@ -94,16 +60,32 @@ function toggleSubmitButton() {
 }
 
 
+
+// reload content on webpage refresh
+window.onload = function() {
+    // validate and list localStorage items
+    if (allTasks.length > 0) {
+        for (let i = 0; i < allTasks.length; i++){
+            const li = document.createElement('li');
+            li.innerHTML = allTasks[i];
+            document.querySelector('#task-list').append(li);
+        }        
+    }
+}
+
+
+
+// clear localStorage and list display
 function clearTasks() {
     let clearButton = document.getElementById('clear-tasks');
     clearButton.style.display = "block";
     clearButton.onclick = function() {
-        if (tasks.length == 0){
+        if (allTasks.length == 0){
             alert('Nothing to clear. You are good to take-off!');
         }
-        else{
+        else {
             localStorage.clear();
-            tasks.length = 0;
+            allTasks.length = 0;
             document.querySelectorAll('li').forEach((li) => {
                 li.style.display = 'none';
             });

@@ -81,6 +81,9 @@ Practicing Javascript by implementing concepts (in my own way) learnt from CS50 
 <hr>
 
 # Debugger Logs
+## Personal Takeaways
+- A good night's sleep is ALWAYS the solution for a debug hassle!
+
 ## CoPilot (GitHub/Codeium)
 ### Regular `function()` vs Arrow function `() =>`
 -  In complicated terms:

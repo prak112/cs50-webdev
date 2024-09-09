@@ -1,7 +1,7 @@
 # Contents
 - [Overview]()
-- [Tasks-Solutions](#tasks---solutions)
-    - [Index](#index)
+- [Features](#features)
+    - [Home Page](#home-page)
     - [Entry Page](#entry-page)
     - [Search Entries](#search-entries)
     - [New Page](#new-page)
@@ -23,8 +23,8 @@
     - `encyclopedia/templates` is provided with `layout.html` and `index.html` to render dynamic content
 
 
-# Tasks - Solutions
-## Index        
+# Features
+## Home Page        
 - [X] **Index** - hyperlink all the entries listed in the Wiki homepage
     - Step 1: Check `Django Template Engine` syntax for hyperlink using `<a>` tag
     - Step 2: Use the *route name* `index` for `<a href="">` inside the `li` tag in `index.html` as follows :

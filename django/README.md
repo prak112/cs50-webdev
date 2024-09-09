@@ -25,8 +25,9 @@
 - [Databases](/django/databases101/README.md)
 
 
-- [Back To Main](/README.md)
-    
+&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp; [Back To Main](/README.md) &ensp;&ensp;| &ensp;&ensp;[Back To Docs-Hub](https://github.com/prak112/Docs-Hub/README.md) &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
+
+
 </br>
 <hr>
 
@@ -54,27 +55,28 @@
 ```mermaid
 
 graph TB
-ServerDevelopmentView
+title>SERVER Setup]
 
-A[Create Project, `project`]
-B[Inside `project` Create App, `app`]
-C[Go to `project/settings.py`]
-D[Add app name to `INSTALLED_APPS` list]
-E[Go to `project/urls.py`]
-F[Add path to `app/urls.py` in `urlpatterns` list]
-G[Go to `app`]
-H[Create `app/urls.py`]
-I[Add View path to `urlpatterns` in `app/urls.py`]
-J[Go to `app/views.py`]
-K[Create View added in `app/urls.py`]
-L[If View returns `HttpResponse`, Nothing else to create]
-M[If View returns `render` HTML template, create `templates` directory]
-N[Inside `app/templates`, create `app` directory]
-O[Inside `app/templates/app`, create HTML]
-P[To add CSS styling, create `static` directory]
-Q[Inside `app/static`, create `app` directory, similar to templates]
-R[Inside `app/static/app`, create `styles.scss`]
-S[Run server from `project` directory]
+A[Create Project]
+B[Inside project Create App]
+C[Go to project/settings.py]
+D[Add app name to INSTALLED_APPS list]
+E[Go to project/urls.py]
+F[Add path to app/urls.py in urlpatterns list]
+G[Go to app]
+H[Create app/urls.py]
+I[Add View path to urlpatterns in app/urls.py]
+J[Go to app/views.py]
+K[Create View added in app/urls.py]
+L{If View returns HttpResponse}
+M[Nothing else to create]
+N{If View returns render HTML template, create templates directory}
+O(Inside app/templates, create app directory)
+P(Inside app/templates/app, create HTML)
+Q(To add CSS styling, create static directory)
+R(Inside app/static, create app directory, similar to templates)
+S(Inside app/static/app, create styles.scss)
+T[Run server from project directory]
 
 A --> B
 B --> C
@@ -88,45 +90,27 @@ I --> J
 J --> K
 K --> L
 L --> M
-M --> N
+M-->T
+K --> N
 N --> O
-M --> P
+O --> P
 P --> Q
 Q --> R
-A --> S
-```
+R --> S
+S --> T
 
-- Create Project, `project`
-- Inside `project` Create App, `app`
-- Go to `project/settings.py`
-- Add app name to `INSTALLED_APPS` list
-- Go to `project/urls.py`
-- Add path to `app/urls.py` in `urlpatterns` list
-- Go to `app`
-- Create `app/urls.py`
-- Add View path to `urlpatterns` in `app/urls.py`
-- Go to `app/views.py`
-- Create View added in `app/urls.py`
-- If View returns `HttpResponse`, Nothing else to create
-- If View returns `render` HTML template, create `templates` directory
-	- Variables can be passed to template as a dictionary in `render()` syntax
-- Inside `app/templates`, create `app` directory
-- Inside `app/templates/app`, create HTML 
-	- In the template, define Variables with Django-template language if neccessary
-- To add CSS styling, create `static` directory
-- Inside `app/static`, create `app` directory (similar to templates)
-- Inside `app/static/app`, create `styles.scss`
-- Run server from `project` directory 
+````
 
 <hr>
 
 ```mermaid
 
 graph TB
-ServerRenderView
+title>SERVER-SIDE RENDERING]
 
-A[Run Server] --> B[Checks `project/urls.py`]
-B --goes to app--> C[Checks view listed in `app/urls.py`]
+
+A[Run Server] --> B[Checks project/urls.py]
+B --goes to app--> C[Checks view listed in app/urls.py]
 C --goes to app/views.py--> D[Renders response] 
 ```
 
@@ -302,6 +286,10 @@ C --goes to app/views.py--> D[Renders response]
 - This resolves the `OperationalError` and launches the application successfully, with built-in session data storage.
 
 
+&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp; [Back To Top](#contents) &ensp;&ensp;| &ensp;&ensp;[Back To Docs-Hub](https://github.com/prak112/Docs-Hub/README.md) &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
 
+<hr>
+<hr>
+<br>
 
 

@@ -9,7 +9,8 @@
 
 
 # Overview
-Practicing Javascript by implementing concepts (in my own way) learnt from CS50 W.
+- Practicing Javascript by implementing concepts (in my own way) learnt from CS50 W.
+- For unconventionally learned concepts, refer [DEBUG_LOG](/javascript/docs/DEBUG_LOG.md)
 
 # Plan
 - Improvise and implement concepts learned
